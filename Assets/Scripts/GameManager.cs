@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
+	public float volume;
+
 	private void Awake()
 	{
 		if (instance == null)
