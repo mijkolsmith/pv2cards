@@ -20,20 +20,30 @@ public class GameManager : MonoBehaviour
 
 	public float volume;
 
+	public Player player;
+	public BattleManager battleManager;
+
 	private void Awake()
 	{
 		if (instance == null)
 		{
 			instance = this;
+			DontDestroyOnLoad(gameObject);
 		}
 		else if (instance != this)
 		{
 			Destroy(gameObject);
 		}
+
+		//initialize game
+		battleManager = gameObject.AddComponent<BattleManager>();
+		player = new Player();
 	}
 
-	void Update()
+	public void ResetGame()
 	{
+		battleManager.ResetGame();
 
+		player.health = 10;
 	}
 }
