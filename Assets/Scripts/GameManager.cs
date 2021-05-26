@@ -43,7 +43,5 @@ public class GameManager : MonoBehaviour
 	public void ResetGame()
 	{
 		battleManager.ResetGame();
-
-		player.health = 10;
 	}
 }

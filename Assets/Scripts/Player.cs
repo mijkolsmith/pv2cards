@@ -2,21 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : IDamageable
+public class Player
 {
-	//IDamageable
-	public int health { get; set; } = 10;
-	public void TakeDamage(int damage)
+	public void UseCard(Card card)
 	{
-		health -= damage;
-		Debug.Log("Player health: " + health);
-	}
-
-	public void UseCard()
-	{
-		//TODO: implement cards
-		GameManager.Instance.battleManager.currentEnemy.TakeDamage(2);
-
 		// Check if enemy is dead
 		if (GameManager.Instance.battleManager.currentEnemy.health > 0)
 		{

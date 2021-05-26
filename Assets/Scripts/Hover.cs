@@ -45,7 +45,7 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 				if (GameManager.Instance.battleManager.playerMove == true)
 				{
 					Debug.Log("The Card " + gameObject.name + " is played");
-					GameManager.Instance.player.UseCard();
+					GameManager.Instance.battleManager.PlayCard(gameObject.GetComponent<Card>());
 				}
 				else { Debug.Log("it's not your turn"); }
 			}

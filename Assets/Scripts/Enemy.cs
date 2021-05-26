@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Enemy : IDamageable
 {
 	// IDamageable
-	public int health { get; set; }
+	public int health;
 	public void TakeDamage(int damage)
 	{
 		health -= damage;
@@ -20,9 +20,10 @@ public abstract class Enemy : IDamageable
 	{
 		if (staggerCounter != 0)
 		{
-			GameManager.Instance.player.TakeDamage(attackDamage);
+			//attack a card 
 			staggerCounter -= 1;
-			if (GameManager.Instance.player.health > 0)
+			//check if all cards are dead
+			if (true)
 			{
 				GameManager.Instance.battleManager.SetState(new PlayerTurnState());
 			}

@@ -50,4 +50,10 @@ public class BattleManager : StateMachine
 			enemies.Add(new TestEnemy(Random.Range(1, 2), Random.Range(1, 10), Random.Range(1, 5)));
 		}
 	}
+
+	public void PlayCard(Card card)
+    {
+		//Animate the card so it goes to the board
+
+    }
 }
