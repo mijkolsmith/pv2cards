@@ -9,6 +9,8 @@ public class BattleManager : StateMachine
 	public Enemy currentEnemy;
 	int enemyIndex = 0;
 
+	public List<Card> cards = new List<Card>();
+
 	public bool playerMove;
 
 	public void Awake()
@@ -51,9 +53,30 @@ public class BattleManager : StateMachine
 		}
 	}
 
-	public void PlayCard(Card card)
+	public void PlayCard(Card playedCard)
     {
-		//Animate the card so it goes to the board
+		// Put the card on the board
+		playedCard.cardState = CardState.arena;
 
-    }
+		// Calculate damage
+		foreach(Card card in cards)
+        {
+			if (card.cardState == CardState.arena)
+            {
+				currentEnemy.TakeDamage(card.attack);
+				card.energy -= 1;
+            }
+        }
+
+		// Check if enemy is dead
+		if (currentEnemy.health > 0)
+		{
+			SetState(new EnemyTurnState());
+			playerMove = false;
+		}
+		else
+		{
+			NextEnemy();
+		}
+	}
 }

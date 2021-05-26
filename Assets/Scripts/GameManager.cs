@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour
 	}
 
 	public float volume;
-
-	public Player player;
 	public BattleManager battleManager;
 
 	private void Awake()
@@ -37,7 +35,6 @@ public class GameManager : MonoBehaviour
 
 		//initialize game
 		battleManager = gameObject.AddComponent<BattleManager>();
-		player = new Player();
 	}
 
 	public void ResetGame()

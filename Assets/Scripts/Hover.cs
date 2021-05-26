@@ -21,8 +21,12 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	private float startScale;
 	private bool mouseHover = false;
 
+	private Card card;
+
 	private void Start()
 	{
+		card = GetComponent<Card>();
+
 		// Apply the width and height
 		RectTransform rt = GetComponent<RectTransform>();
 		rt.sizeDelta = new Vector2(width, height);
@@ -45,7 +49,7 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 				if (GameManager.Instance.battleManager.playerMove == true)
 				{
 					Debug.Log("The Card " + gameObject.name + " is played");
-					GameManager.Instance.battleManager.PlayCard(gameObject.GetComponent<Card>());
+					GameManager.Instance.battleManager.PlayCard(card);
 				}
 				else { Debug.Log("it's not your turn"); }
 			}
