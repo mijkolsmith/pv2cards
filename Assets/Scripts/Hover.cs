@@ -7,7 +7,6 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 	// Edit these variables however you like :)!
 	private readonly float endPosHeight = 50; // How high the card will be when hovering over it
-	private readonly float endRot = 0; // How much the card should be tilted when hovering over it
 	private readonly float endScale = 1.7f; // How big the card will be when hovering over it
 	private readonly float animationSpeed = 5; // How fast the card will move when hovering over it
 	private readonly int width = 150; // The width of the card
@@ -17,11 +16,13 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	private int siblingIndex;
 	private Vector3 startPos;
 	private Vector3 endPos;
-	private float startRot;
 	private float startScale;
 	private bool mouseHover = false;
 
+	private Canvas myCanvas;
 	private Card card;
+
+	bool posSet = false;
 
 	private void Start()
 	{
@@ -33,17 +34,24 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
 		// Set some starting variables for later use
 		siblingIndex = transform.GetSiblingIndex();
-		endPos = new Vector3(transform.position.x, transform.position.y + endPosHeight, transform.position.z);
-		startPos = transform.position;
-		startRot = transform.rotation.eulerAngles.z;
 		startScale = transform.localScale.x;
+		myCanvas = GetComponent<Canvas>();
+		myCanvas.sortingOrder = siblingIndex;
 	}
 
 	private void Update()
 	{
+		// For some reason, the localPosition is different in the first frame. This is a hardfix.
+		if (transform.localPosition.y < -440f && !posSet)
+		{
+			startPos = transform.localPosition;
+			endPos = new Vector3(transform.localPosition.x, transform.localPosition.y + endPosHeight, transform.localPosition.z);
+			posSet = true;
+		}
+
 		if (Input.GetKeyUp(KeyCode.Mouse0))
 		{// Play the card if someone releases Mouse0 when the card is hovering above endPos.y + endPosHeight
-			if (transform.position.y > endPos.y + endPosHeight)
+			if (transform.localPosition.y > endPos.y + endPosHeight)
 			{
 				//TODO: When a card is released above endPos.y + endPosHeight, use the card
 				if (GameManager.Instance.battleManager.playerMove == true)
@@ -58,63 +66,57 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		{// Drag the card whenever Mouse0 is pressed
 			transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y - height / 2, Input.mousePosition.z);
 		}
-		if (mouseHover)
+		if (mouseHover && !Input.GetKey(KeyCode.Mouse0))
 		{// Animate the card when hovering over it
 			// If the Lerp is close enough, don't bother lerping anymore
-			if (transform.position.y < endPos.y)
+			if (transform.localPosition.y < endPos.y)
 			{
-				if (transform.position.y > endPos.y - 0.001 && transform.localScale.x > endScale - 0.001 && transform.rotation.eulerAngles.z > endRot - 0.001)
+				if (transform.localPosition.y > endPos.y - 0.001 && transform.localScale.x > endScale - 0.001)
 				{ return; }
 			}
 
 			// Lerp transform.position to endPos
-			transform.position = Vector3.Lerp(transform.position, endPos, animationSpeed * Time.deltaTime);
+			transform.localPosition = Vector3.Lerp(transform.localPosition, endPos, animationSpeed * Time.deltaTime);
 			
 			// Lerp transform.localScale to endScale
 			transform.localScale = new Vector3(Mathf.Lerp(transform.localScale.x, endScale, animationSpeed * Time.deltaTime),
 												Mathf.Lerp(transform.localScale.y, endScale, animationSpeed * Time.deltaTime),
 												Mathf.Lerp(transform.localScale.z, endScale, animationSpeed * Time.deltaTime));
-			
-			// Lerp transform.rotation.z to endRot
-			transform.rotation = Quaternion.Lerp(Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z), Quaternion.Euler(0, 0, endRot), animationSpeed * Time.deltaTime);
 		}
 		if (!mouseHover)
 		{
 			// If the Lerp is close enough, don't bother lerping anymore
-			if (transform.position.y < startPos.y + 0.01 && transform.localScale.x < startScale + 0.01 && transform.rotation.eulerAngles.z < startRot + 0.01)
+			if (transform.localPosition.y < startPos.y + 0.01 && transform.localScale.x < startScale + 0.01)
 			{ return; }
 
 			// Reset position with Lerp
-			transform.position = Vector3.Lerp(transform.position, startPos, animationSpeed * Time.deltaTime);
+			transform.localPosition = Vector3.Lerp(transform.localPosition, startPos, animationSpeed * Time.deltaTime);
 
 			// Reset localScale with Lerp
 			transform.localScale = new Vector3(Mathf.Lerp(transform.localScale.x, startScale, animationSpeed * Time.deltaTime),
 												Mathf.Lerp(transform.localScale.y, startScale, animationSpeed * Time.deltaTime),
 												Mathf.Lerp(transform.localScale.z, startScale, animationSpeed * Time.deltaTime));
-
-			// Reset rotation with Lerp
-			transform.rotation = Quaternion.Lerp(Quaternion.Euler(0, 0, transform.rotation.eulerAngles.z), Quaternion.Euler(0, 0, startRot), animationSpeed * Time.deltaTime);
 		}
 	}
 
 	public void OnPointerEnter(PointerEventData eventData)
 	{
-		StartCoroutine(slowSibling());
+		StartCoroutine(slowChangeSortOrder());
 		mouseHover = true;
 	}
 
 	public void OnPointerExit(PointerEventData eventData)
 	{
-		transform.SetSiblingIndex(siblingIndex);
+		myCanvas.sortingOrder = siblingIndex;
 		mouseHover = false;
 	}
 
-	IEnumerator slowSibling()
+	IEnumerator slowChangeSortOrder()
 	{
 		yield return new WaitForSeconds(0.2f);
 		if (mouseHover)
 		{
-			transform.SetAsLastSibling();
+			myCanvas.sortingOrder = 200;
 		}
 	}
 }
