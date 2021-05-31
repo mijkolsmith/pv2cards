@@ -23,6 +23,7 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	private Card card;
 
 	bool posSet = false;
+	bool firstFramePassed = false;
 
 	private void Start()
 	{
@@ -42,11 +43,16 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 	private void Update()
 	{
 		// For some reason, the localPosition is different in the first frame. This is a hardfix.
-		if (transform.localPosition.y < -440f && !posSet)
+		if (!posSet && firstFramePassed)
 		{
 			startPos = transform.localPosition;
 			endPos = new Vector3(transform.localPosition.x, transform.localPosition.y + endPosHeight, transform.localPosition.z);
 			posSet = true;
+		}
+
+		if (!firstFramePassed)
+		{
+			firstFramePassed = true;
 		}
 
 		if (Input.GetKeyUp(KeyCode.Mouse0))
