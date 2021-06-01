@@ -127,12 +127,32 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5398322478031609038, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5398322478031609038, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 91.3
+      objectReference: {fileID: 0}
     - target: {fileID: 6151030009124090536, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: 20a0a18c98fc3634a891bcd48eaa7a01,
         type: 3}
+    - target: {fileID: 8051733867355353412, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -53.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8051733867355353412, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 91.9
+      objectReference: {fileID: 0}
     - target: {fileID: 8261456681747488917, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text
