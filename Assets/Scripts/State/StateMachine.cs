@@ -5,7 +5,6 @@ using UnityEngine;
 public abstract class StateMachine : MonoBehaviour
 {
 	protected State state;
-
 	public void SetState(State _state)
 	{
 		if (state != null)
@@ -13,6 +12,11 @@ public abstract class StateMachine : MonoBehaviour
 		state = _state;
 		StartCoroutine(state.Start());
 	}
+
+	public State GetState()
+    {
+		return state;
+    }
 
 	public void Update()
 	{

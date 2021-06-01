@@ -24,10 +24,10 @@ public abstract class Enemy : IDamageable
 			//attack a card 
 			staggerCounter -= 1;
 
-			GameManager.Instance.battleManager.cards.Where(x => x.cardState == CardState.arena).First().TakeDamage(attackDamage);
+			GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState)).First().TakeDamage(attackDamage);
 
 			//check if all cards are dead
-			if (GameManager.Instance.battleManager.cards.Where(x => x.cardState == CardState.arena).Count() == 0)
+			if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState)).Count() == 0)
 			{
 				GameManager.Instance.battleManager.SetState(new PlayerTurnState());
 			}

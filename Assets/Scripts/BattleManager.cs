@@ -56,12 +56,13 @@ public class BattleManager : StateMachine
 	public void PlayCard(Card playedCard)
     {
 		// Put the card on the board
-		playedCard.cardState = CardState.arena;
+		playedCard.SetState(new ArenaState(playedCard));
 
 		// Calculate damage
 		foreach(Card card in cards)
         {
-			if (card.cardState == CardState.arena)
+			//needs testing
+			if (card.GetState().GetType() == typeof(ArenaState))
             {
 				currentEnemy.TakeDamage(card.attack);
 				card.energy -= 1;
