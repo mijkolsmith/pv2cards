@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &7821167821819941280
+--- !u!1001 &3310316498887931864
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,17 +10,21 @@ PrefabInstance:
     - target: {fileID: 2665143230183270168, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text
-      value: 2
+      value: '3
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 4851103466701429463, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text
-      value: Water fun!
+      value: 'Friendly cat
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 4852243296477721243, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_Name
-      value: Kaart_Waterpistool Variant
+      value: Kaart_FriendlyCat
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
@@ -40,7 +44,7 @@ PrefabInstance:
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
@@ -50,7 +54,7 @@ PrefabInstance:
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
@@ -60,12 +64,12 @@ PrefabInstance:
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 225
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
@@ -105,7 +109,7 @@ PrefabInstance:
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 2545
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
@@ -127,22 +131,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 43.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6151030009124090536, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 639230b0dbc302d42b212cf7354cffb1,
+      objectReference: {fileID: 21300000, guid: eec8d98c57d351543b8b0bb84ecd08ec,
         type: 3}
     - target: {fileID: 8261456681747488917, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8541802104575730758, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 4fb53776bacfc8445a70885f4842bf99,
+      objectReference: {fileID: 21300000, guid: 9bdd8909aeefd35439655185bb5e1912,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83c46438368515c4a9f95ab32e950b52, type: 3}

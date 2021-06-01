@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &244793885245100063
+--- !u!1001 &3857452335288509958
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,19 +10,21 @@ PrefabInstance:
     - target: {fileID: 2665143230183270168, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text
-      value: '1
+      value: '6
 
 '
       objectReference: {fileID: 0}
     - target: {fileID: 4851103466701429463, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text
-      value: Trien
+      value: 'Fidget away
+
+'
       objectReference: {fileID: 0}
     - target: {fileID: 4852243296477721243, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_Name
-      value: Kaart_Trien
+      value: Kaart_FigetAway
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
@@ -107,7 +109,7 @@ PrefabInstance:
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 504.6
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
@@ -131,40 +133,50 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 108.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
       propertyPath: m_LocalScale.x
-      value: 1.1624
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 1.1640273
+      value: 1.05
       objectReference: {fileID: 0}
     - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.1624
+      value: 1.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.3
       objectReference: {fileID: 0}
     - target: {fileID: 5120520276775529276, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 43.4
+      value: 46
       objectReference: {fileID: 0}
     - target: {fileID: 6151030009124090536, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 2fd3a206f2145c1439402dd928555928,
+      objectReference: {fileID: 21300000, guid: f7a231a7d78813945b0db86b93ef1f77,
         type: 3}
     - target: {fileID: 8261456681747488917, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8541802104575730758, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 9bdd8909aeefd35439655185bb5e1912,
+      objectReference: {fileID: 21300000, guid: 054c83f6ce45f7b4c93ea831152477e3,
         type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83c46438368515c4a9f95ab32e950b52, type: 3}
