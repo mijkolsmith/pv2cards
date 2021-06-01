@@ -10,7 +10,11 @@ public class ArenaState : State
 
 	public override IEnumerator Start()
 	{
-		//add card to arenaPanel
+		Debug.Log(card.name + ": In Arena");
+
+		// TODO: there's a bug it becomes small?
+		card.transform.SetParent(GameManager.Instance.arenaPanel.transform, true);
+
 		yield return null;
 	}
 

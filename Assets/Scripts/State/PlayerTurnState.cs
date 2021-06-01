@@ -9,13 +9,11 @@ public class PlayerTurnState : State
 	{
 		Debug.Log("PlayerTurnState");
 
-		Debug.Log(GameManager.Instance.battleManager.cards.Count());
 		if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)).Count() == 0)
         {
 			for (int i = 0; i < 5; i++)
 			{
 				GameManager.Instance.battleManager.cards[i].SetState(new HandState(GameManager.Instance.battleManager.cards[i]));
-				GameManager.Instance.battleManager.cards[i].gameObject.transform.SetParent(GameManager.Instance.handPanel.transform);
 			}
 		}
 		

@@ -27,7 +27,7 @@ public abstract class Enemy : IDamageable
 			GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState)).First().TakeDamage(attackDamage);
 
 			//check if all cards are dead
-			if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState)).Count() == 0)
+			if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState)).Count() > 0)
 			{
 				GameManager.Instance.battleManager.SetState(new PlayerTurnState());
 			}

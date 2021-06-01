@@ -1,41 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using TMPro;
 using UnityEngine.UI;
+using System.Linq;
 
-public class Card : StateMachine, IDamageable
+public class Card : StateMachine, IDamageable, IPointerEnterHandler, IPointerExitHandler
 {
-    public int attack;
+    [HideInInspector] public int attack;
     TextMeshProUGUI attackText;
-    public int energy;
+    [HideInInspector] public int energy;
     TextMeshProUGUI energyText;
 
-    // Edit these variables however you like :)!
-    public readonly float endPosHeight = 50; // How high the card will be when hovering over it
+    // Edit these variables however you like (They influence the animations)
+    public readonly float endPosHeight = 150; // How high the card will be when hovering over it
     public readonly float endScale = 1.7f; // How big the card will be when hovering over it
     public readonly float animationSpeed = 5; // How fast the card will move when hovering over it
-    public readonly int width = 150; // The width of the card
+    public readonly int width = 100; // The width of the card
     public readonly int height = 225; // The height of the card
 
     // Other variables needed for the script to work
-    public int siblingIndex;
-    public Vector3 startPos;
-    public Vector3 endPos;
-    public float startScale;
-    public bool mouseHover = false;
-
-    public Canvas myCanvas;
-    public GameObject handPanel;
-    public GameObject arenaPanel;
+    [HideInInspector] public int siblingIndex;
+    [HideInInspector] public bool mouseHover = false;
+    [HideInInspector] public Canvas myCanvas;
 
     public void Start()
     {
-        SetState(new DeckState(this));
-        GameManager.Instance.battleManager.cards.Add(this);
+        List<TextMeshProUGUI> texts = GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "Attack" || x.name == "Energy").ToList();
+        attackText = texts.Where(x => x.name == "Attack").First();
+        energyText = texts.Where(x => x.name == "Energy").First();
+        attack = int.Parse(attackText.text);
+        energy = int.Parse(energyText.text);
 
-        handPanel = GameManager.Instance.handPanel;
-        arenaPanel = GameManager.Instance.arenaPanel;
+        SetState(new DeckState(this));
+        if (GameManager.Instance.battleManager != null)
+        {
+            GameManager.Instance.battleManager.cards.Add(this);
+        }
 
         // Apply the width and height
         RectTransform rt = GetComponent<RectTransform>();
@@ -44,7 +46,6 @@ public class Card : StateMachine, IDamageable
         // TODO: HandState
         // Set some starting variables for later use
         siblingIndex = transform.GetSiblingIndex();
-        startScale = transform.localScale.x;
         myCanvas = GetComponent<Canvas>();
         myCanvas.sortingOrder = siblingIndex;
     }
@@ -59,5 +60,26 @@ public class Card : StateMachine, IDamageable
         base.Update();
         attackText.text = attack.ToString();
         energyText.text = energy.ToString();
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        StartCoroutine(slowChangeSortOrder());
+        mouseHover = true;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        myCanvas.sortingOrder = siblingIndex;
+        mouseHover = false;
+    }
+
+    IEnumerator slowChangeSortOrder()
+    {
+        yield return new WaitForSeconds(0.2f);
+        if (mouseHover)
+        {
+            myCanvas.sortingOrder = 200;
+        }
     }
 }
