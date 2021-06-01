@@ -15,7 +15,7 @@ PrefabInstance:
     - target: {fileID: 4851103466701429463, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text
-      value: WaterPiostool
+      value: Water fun!
       objectReference: {fileID: 0}
     - target: {fileID: 4852243296477721243, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
@@ -138,5 +138,11 @@ PrefabInstance:
       propertyPath: m_text
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8541802104575730758, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 4fb53776bacfc8445a70885f4842bf99,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83c46438368515c4a9f95ab32e950b52, type: 3}
