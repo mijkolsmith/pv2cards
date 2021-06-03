@@ -16,24 +16,21 @@ public class PlayerTurnState : State
 				GameManager.Instance.battleManager.cards[i].SetState(new HandState(GameManager.Instance.battleManager.cards[i]));
 			}
 		}
-		
+        else
+        {
+			Card card = GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).First();
+			card.SetState(new HandState(card));
+		}
+
 		//display it's the player's turn
 		GameManager.Instance.battleManager.playerMove = true;
 
 		yield return null;
 	}
 
-	public override IEnumerator Update()
+	public override IEnumerator Exit()
 	{
-		//check for input, player chooses card
-		//when input use card
-		yield return null;
-	}
-
-	public override IEnumerator Attack()
-	{
-		//use card, calculations, set state to enemyturn
-		
+		GameManager.Instance.battleManager.playerMove = false;
 		yield return null;
 	}
 }

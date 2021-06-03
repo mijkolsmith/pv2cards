@@ -23,8 +23,8 @@ public class BattleManager : StateMachine
 		currentEnemy = enemies[enemyIndex];
 
 		//TODO: need to read this from the scene prefabs instead like the card instead of generating enemies
-		enemyHealth.text = currentEnemy.health.ToString();
-		enemyAttack.text = currentEnemy.attackDamage.ToString();
+		//enemyHealth.text = currentEnemy.health.ToString();
+		//enemyAttack.text = currentEnemy.attackDamage.ToString();
 	}
 
 	public void NextEnemy()
@@ -80,11 +80,14 @@ public class BattleManager : StateMachine
             }
         }
 
-		// Check if enemy is dead
+		NextTurn();
+	}
+
+	public void NextTurn()
+    {
 		if (currentEnemy.health > 0)
-		{
+		{ // Check if enemy is dead
 			SetState(new EnemyTurnState());
-			playerMove = false;
 		}
 		else
 		{
