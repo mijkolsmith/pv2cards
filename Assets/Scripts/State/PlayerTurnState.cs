@@ -7,7 +7,7 @@ public class PlayerTurnState : State
 	Enemy enemy;
 	public override IEnumerator Start()
 	{
-		Debug.Log("PlayerTurnState");
+		Debug.Log("PlayerTurnState, cards in hand: " + GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)).Count());
 
 		if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)).Count() == 0)
         {
@@ -16,10 +16,15 @@ public class PlayerTurnState : State
 				GameManager.Instance.battleManager.cards[i].SetState(new HandState(GameManager.Instance.battleManager.cards[i]));
 			}
 		}
-        else
+        else if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).Count() != 0)
         {
 			Card card = GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).First();
 			card.SetState(new HandState(card));
+		}
+
+		foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)))
+		{
+			card.posSet = false;
 		}
 
 		//display it's the player's turn

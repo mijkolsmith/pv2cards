@@ -85,12 +85,10 @@ public class BattleManager : StateMachine
 
 	public void NextTurn()
     {
-		if (currentEnemy.health > 0)
+		SetState(new EnemyTurnState());
+
+		if (currentEnemy.health <= 0)
 		{ // Check if enemy is dead
-			SetState(new EnemyTurnState());
-		}
-		else
-		{
 			NextEnemy();
 		}
 	}
