@@ -12,7 +12,6 @@ public class HandState : State
 	private Vector3 endPos;
 
 	public float startScale;
-	private bool posSet;
 	private bool firstFramePassed;
 
 	public override IEnumerator Start()
@@ -27,12 +26,11 @@ public class HandState : State
 
 	public override IEnumerator Update()
 	{
-		Debug.Log(card.mouseHover);
-		if (!posSet && firstFramePassed)
+		if (!card.posSet && firstFramePassed)
 		{
 			startPos = card.transform.localPosition;
 			endPos = new Vector3(card.transform.localPosition.x, card.transform.localPosition.y + card.endPosHeight, card.transform.localPosition.z);
-			posSet = true;
+			card.posSet = true;
 		}
 
 		if (!firstFramePassed)
@@ -51,6 +49,11 @@ public class HandState : State
 
 					card.transform.localScale = Vector3.zero * startScale;
 					GameManager.Instance.battleManager.PlayCard(card);
+
+					foreach (Card card in GameManager.Instance.battleManager.cards)
+                    {
+						card.posSet = false;
+                    }
 				}
 				else { Debug.Log("it's not your turn"); }
 			}
@@ -65,7 +68,7 @@ public class HandState : State
 			if (card.transform.localPosition.y < endPos.y)
 			{
 				if (card.transform.localPosition.y > endPos.y - 0.001 && card.transform.localScale.x > card.endScale - 0.001)
-				{ yield return null; }
+				{ yield break; }
 			}
 
 			// Lerp transform.position to endPos
@@ -78,7 +81,7 @@ public class HandState : State
 		{
 			// If the Lerp is close enough, don't bother lerping anymore
 			if (card.transform.localPosition.y < startPos.y + 0.01 && card.transform.localScale.x < startScale + 0.01)
-			{ yield return null; }
+			{ yield break; }
 
 			// Reset position with Lerp
 			card.transform.localPosition = Vector3.Lerp(card.transform.localPosition, startPos, card.animationSpeed * Time.deltaTime);

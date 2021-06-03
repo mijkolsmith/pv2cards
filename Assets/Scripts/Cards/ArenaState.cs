@@ -20,6 +20,8 @@ public class ArenaState : State
 
 	public override IEnumerator Update()
 	{
+		card.transform.localScale = new Vector3(1,1,1);
+		card.transform.localPosition = new Vector3(card.transform.localPosition.x, card.transform.localPosition.y, 0);
 		yield return null;
 	}
 

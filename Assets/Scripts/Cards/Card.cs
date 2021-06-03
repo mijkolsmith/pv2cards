@@ -24,6 +24,7 @@ public class Card : StateMachine, IDamageable, IPointerEnterHandler, IPointerExi
     [HideInInspector] public int siblingIndex;
     [HideInInspector] public bool mouseHover = false;
     [HideInInspector] public Canvas myCanvas;
+    [HideInInspector] public bool posSet;
 
     public void Start()
     {
@@ -43,11 +44,20 @@ public class Card : StateMachine, IDamageable, IPointerEnterHandler, IPointerExi
         RectTransform rt = GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(width, height);
 
-        // TODO: HandState
         // Set some starting variables for later use
         siblingIndex = transform.GetSiblingIndex();
         myCanvas = GetComponent<Canvas>();
         myCanvas.sortingOrder = siblingIndex;
+    }
+
+    public new void SetState(State state)
+    {
+        base.SetState(state);
+        siblingIndex = transform.GetSiblingIndex();
+        if (myCanvas != null)
+        {
+            myCanvas.sortingOrder = siblingIndex;
+        }
     }
 
     public void TakeDamage(int damage)
