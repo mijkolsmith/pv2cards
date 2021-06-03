@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,9 @@ public class GameManager : MonoBehaviour
 	public float volume;
 	public BattleManager battleManager;
 
+	public GameObject handPanel;
+	public GameObject arenaPanel;
+
 	private void Awake()
 	{
 		if (instance == null)
@@ -37,7 +41,17 @@ public class GameManager : MonoBehaviour
 		battleManager = gameObject.AddComponent<BattleManager>();
 	}
 
-	public void ResetGame()
+    public void Update()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+			List<CanvasRenderer> panels = FindObjectsOfType<CanvasRenderer>().Where(x => x.name == "HandPanel" || x.name == "ArenaPanel").ToList();
+			handPanel = panels.Where(x => x.name == "HandPanel").First().gameObject;
+			arenaPanel = panels.Where(x => x.name == "ArenaPanel").First().gameObject;
+        }
+    }
+
+    public void ResetGame()
 	{
 		battleManager.ResetGame();
 	}

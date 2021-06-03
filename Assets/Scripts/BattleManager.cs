@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using TMPro;
 
 public class BattleManager : StateMachine
 {
 	List<Enemy> enemies = new List<Enemy>();
-	public Enemy currentEnemy;
-	int enemyIndex = 0;
-
 	public List<Card> cards = new List<Card>();
+	public Enemy currentEnemy;
+	public TextMeshProUGUI enemyHealth;
+	public TextMeshProUGUI enemyAttack;
+	public TextMeshProUGUI enemyAttackTimes;
+	int enemyIndex = 0;
 
 	public bool playerMove;
 
@@ -18,13 +21,17 @@ public class BattleManager : StateMachine
 		SetState(new MenuState());
 		GenerateEnemies(5);
 		currentEnemy = enemies[enemyIndex];
+
+		enemyHealth.text = currentEnemy.health.ToString();
+		enemyAttack.text = currentEnemy.attackDamage.ToString();
+
 	}
 
 	public void NextEnemy()
 	{
 		Debug.Log("NextEnemy");
 		enemyIndex++;
-		Debug.Log("enemy count: " + enemies.Count + ",   index:" + enemyIndex);
+		Debug.Log("enemy count: " + enemies.Count + ",   index: " + enemyIndex);
 		if (enemies.Count > enemyIndex)
 		{
 			currentEnemy = enemies[enemyIndex];
@@ -49,22 +56,27 @@ public class BattleManager : StateMachine
 	{//TODO: enemy generation process
 		for (int i = 0; i < amountOfEnemies; i++)
 		{
-			enemies.Add(new TestEnemy(Random.Range(1, 2), Random.Range(1, 10), Random.Range(1, 5)));
+			enemies.Add(new TestEnemy(Random.Range(1, 2), 1, Random.Range(1, 10), Random.Range(1, 5)));
 		}
 	}
 
 	public void PlayCard(Card playedCard)
     {
 		// Put the card on the board
-		playedCard.cardState = CardState.arena;
+		playedCard.SetState(new ArenaState(playedCard));
 
 		// Calculate damage
 		foreach(Card card in cards)
         {
-			if (card.cardState == CardState.arena)
+			//needs testing
+			if (card.GetState().GetType() == typeof(ArenaState))
             {
 				currentEnemy.TakeDamage(card.attack);
 				card.energy -= 1;
+				if (card.energy <= 0)
+                {
+					card.SetState(new DeathState(card));
+                }
             }
         }
 

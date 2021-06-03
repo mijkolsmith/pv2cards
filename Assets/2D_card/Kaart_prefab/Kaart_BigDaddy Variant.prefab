@@ -22,7 +22,7 @@ PrefabInstance:
     - target: {fileID: 4852243296477721243, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_Name
-      value: Kaart_BigDaddy
+      value: Kaart_BigDaddy Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
@@ -42,22 +42,22 @@ PrefabInstance:
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
-        type: 3}
-      propertyPath: m_AnchorMin.x
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
@@ -107,7 +107,7 @@ PrefabInstance:
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1384
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 4977821152401310823, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
