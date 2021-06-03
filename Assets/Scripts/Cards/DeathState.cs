@@ -10,11 +10,9 @@ public class DeathState : State
 
 	public override IEnumerator Start()
 	{
-		yield return null;
-	}
-
-	public override IEnumerator Attack()
-	{
+		Debug.Log(card.name + ": Death");
+		Object.Destroy(card.gameObject);
+		Canvas.ForceUpdateCanvases();
 		yield return null;
 	}
 }
