@@ -22,9 +22,9 @@ public class BattleManager : StateMachine
 		GenerateEnemies(5);
 		currentEnemy = enemies[enemyIndex];
 
+		//TODO: need to read this from the scene prefabs instead like the card instead of generating enemies
 		enemyHealth.text = currentEnemy.health.ToString();
 		enemyAttack.text = currentEnemy.attackDamage.ToString();
-
 	}
 
 	public void NextEnemy()
@@ -53,10 +53,10 @@ public class BattleManager : StateMachine
 	}
 
 	public void GenerateEnemies(int amountOfEnemies)
-	{//TODO: enemy generation process
+	{
 		for (int i = 0; i < amountOfEnemies; i++)
 		{
-			enemies.Add(new TestEnemy(Random.Range(1, 2), 1, Random.Range(1, 10), Random.Range(1, 5)));
+			enemies.Add(new TestEnemy(new List<int>() { Random.Range(1, 2) }, 1, Random.Range(1, 10), Random.Range(1, 5))); ;
 		}
 	}
 

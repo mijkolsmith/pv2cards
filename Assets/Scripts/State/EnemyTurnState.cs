@@ -17,12 +17,4 @@ public class EnemyTurnState : State
 		enemy.Attack();
 		yield return null;
 	}
-
-	public override IEnumerator Attack()
-	{
-		//TODO: do i need this? not sure
-		enemy.Attack();
-
-		yield return null;
-	}
 }

@@ -13,8 +13,7 @@ public abstract class Enemy : IDamageable
 		Debug.Log(GameManager.Instance.battleManager.currentEnemy + " health: " + health);
 	}
 
-	public int attackDamage;
-	public int attackTimes;
+	public List<int> attackDamage = new List<int>();
 	public int staggerTotal;
 	public int staggerCounter;
 
@@ -28,9 +27,9 @@ public abstract class Enemy : IDamageable
 			//check if all cards are dead
 			if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState)).Count() > 0)
 			{
-                for (int i = 0; i < attackTimes; i++)
+                for (int i = 0; i < attackDamage.Count; i++)
                 {
-					GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState)).First().TakeDamage(attackDamage);
+					GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState)).OrderBy(x => x.energy).First().TakeDamage(attackDamage[i]);
 				}
 				GameManager.Instance.battleManager.SetState(new PlayerTurnState());
 			}
