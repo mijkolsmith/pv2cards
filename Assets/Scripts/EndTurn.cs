@@ -1,4 +1,6 @@
-public class EndTurn : MonoBehaviour
+using UnityEngine;
+
+public class EndTurn : ScriptableObject
 {
     public void NextTurn()
     {
