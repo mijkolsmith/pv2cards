@@ -7,8 +7,6 @@ public class PlayerTurnState : State
 	Enemy enemy;
 	public override IEnumerator Start()
 	{
-		Debug.Log("PlayerTurnState, cards in hand: " + GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)).Count());
-
 		if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)).Count() == 0)
         {
 			for (int i = 0; i < 5; i++)

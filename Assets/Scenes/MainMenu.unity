@@ -1387,7 +1387,7 @@ GameObject:
   - component: {fileID: 1190964897}
   - component: {fileID: 1190964896}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Dog
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1402,7 +1402,7 @@ RectTransform:
   m_GameObject: {fileID: 1190964894}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.42441905, y: 0.44580978, z: 0.42441905}
+  m_LocalScale: {x: 0.47691968, y: 0.44580978, z: 0.42441905}
   m_Children: []
   m_Father: {fileID: 91761796}
   m_RootOrder: 0

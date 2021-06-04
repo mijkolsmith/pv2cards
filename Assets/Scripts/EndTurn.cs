@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EndTurn : ScriptableObject
+public class EndTurn : MonoBehaviour
 {
     public void NextTurn()
     {

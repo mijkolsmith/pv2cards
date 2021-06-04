@@ -22,6 +22,7 @@ public class ArenaState : State
 	{
 		card.transform.localScale = new Vector3(1,1,1);
 		card.transform.localPosition = new Vector3(card.transform.localPosition.x, card.transform.localPosition.y, 0);
+		card.transform.localRotation = Quaternion.identity;
 		yield return null;
 	}
 

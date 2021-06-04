@@ -29,12 +29,12 @@ public class BattleManager : StateMachine
 
 	public void NextEnemy()
 	{
-		Debug.Log("NextEnemy");
+		Debug.Log("enemy " + enemyIndex + " died");
 		enemyIndex++;
-		Debug.Log("enemy count: " + enemies.Count + ",   index: " + enemyIndex);
-		if (enemies.Count > enemyIndex)
+		if (enemies.Count >= enemyIndex)
 		{
 			currentEnemy = enemies[enemyIndex];
+			Debug.Log("new enemy " + enemyIndex + "   health: " + currentEnemy.health + "  attack damage 1: " + currentEnemy.attackDamage[0] + " stagger: " + currentEnemy.staggerTotal);
 		}
 		else
 		{
@@ -65,31 +65,31 @@ public class BattleManager : StateMachine
 		// Put the card on the board
 		playedCard.SetState(new ArenaState(playedCard));
 
-		// Calculate damage
-		foreach(Card card in cards)
-        {
-			//needs testing
-			if (card.GetState().GetType() == typeof(ArenaState))
-            {
-				currentEnemy.TakeDamage(card.attack);
-				card.energy -= 1;
-				if (card.energy <= 0)
-                {
-					card.SetState(new DeathState(card));
-                }
-            }
-        }
-
 		NextTurn();
 	}
 
 	public void NextTurn()
     {
-		SetState(new EnemyTurnState());
+		// Calculate damage
+		foreach (Card card in cards)
+		{
+			//needs testing
+			if (card.GetState().GetType() == typeof(ArenaState))
+			{
+				currentEnemy.TakeDamage(card.attack);
+				card.energy -= 1;
+				if (card.energy <= 0)
+				{
+					card.SetState(new DeathState(card));
+				}
+			}
+		}
 
 		if (currentEnemy.health <= 0)
 		{ // Check if enemy is dead
 			NextEnemy();
 		}
+
+		SetState(new EnemyTurnState());
 	}
 }
