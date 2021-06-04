@@ -619,14 +619,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e06f2cbdba939c84e95044f5c6192f3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attack: 0
-  energy: 0
+  effect: 0
+  modifier: 0
+  left: 0
   siblingIndex: 0
-  startPos: {x: 0, y: 0, z: 0}
-  endPos: {x: 0, y: 0, z: 0}
-  startScale: 0
   mouseHover: 0
   myCanvas: {fileID: 0}
+  posSet: 0
 --- !u!1 &5406288408411052812
 GameObject:
   m_ObjectHideFlags: 0

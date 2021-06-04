@@ -20,6 +20,11 @@ public class PlayerTurnState : State
 			card.SetState(new HandState(card));
 		}
 
+		foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)))
+		{
+			card.UpdateSiblingIndex();
+		}
+
 		foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)))
 		{
 			card.posSet = false;
