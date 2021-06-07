@@ -7,6 +7,7 @@ public class PlayerTurnState : State
 	Enemy enemy;
 	public override IEnumerator Start()
 	{
+		// Draw 5 cards at the start, otherwise draw 1 card
 		if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)).Count() == 0)
         {
 			for (int i = 0; i < 5; i++)
@@ -20,6 +21,7 @@ public class PlayerTurnState : State
 			card.SetState(new HandState(card));
 		}
 
+		// Update visuals
 		foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)))
 		{
 			card.UpdateSiblingIndex();
@@ -30,7 +32,7 @@ public class PlayerTurnState : State
 			card.posSet = false;
 		}
 
-		//display it's the player's turn
+		// Display it's the player's turn
 		GameManager.Instance.battleManager.playerMove = true;
 
 		yield return null;

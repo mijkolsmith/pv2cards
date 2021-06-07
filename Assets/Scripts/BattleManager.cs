@@ -6,7 +6,7 @@ using TMPro;
 
 public class BattleManager : StateMachine
 {
-	List<Enemy> enemies = new List<Enemy>();
+	public List<Enemy> enemies = new List<Enemy>();
 	public List<Card> cards = new List<Card>();
 	public Enemy currentEnemy;
 	public TextMeshProUGUI enemyHealth;
@@ -19,12 +19,6 @@ public class BattleManager : StateMachine
 	public void Awake()
 	{
 		SetState(new MenuState());
-		GenerateEnemies(5);
-		currentEnemy = enemies[enemyIndex];
-
-		//TODO: need to read this from the scene prefabs instead like the card instead of generating enemies
-		//enemyHealth.text = currentEnemy.health.ToString();
-		//enemyAttack.text = currentEnemy.attackDamage.ToString();
 	}
 
 	public void NextEnemy()
@@ -47,21 +41,16 @@ public class BattleManager : StateMachine
 	{
 		enemyIndex = 0;
 		enemies.Clear();
-		GenerateEnemies(5);
-		currentEnemy = enemies[enemyIndex];
 		SetState(new MenuState());
-	}
-
-	public void GenerateEnemies(int amountOfEnemies)
-	{
-		for (int i = 0; i < amountOfEnemies; i++)
-		{
-			enemies.Add(new TestEnemy(new List<int>() { Random.Range(1, 2) }, 1, Random.Range(1, 10), Random.Range(1, 5))); ;
-		}
 	}
 
 	public void PlayCard(Card playedCard)
     {
+		if (currentEnemy == null)
+		{
+			currentEnemy = enemies[enemyIndex];
+		}
+
 		// Put the card on the board
 		playedCard.SetState(new ArenaState(playedCard));
 
@@ -88,27 +77,18 @@ public class BattleManager : StateMachine
 			}
 		}
 
-		// Step 2: Calculate damage
+		// Step 2: Calculate damage done by cards
 		foreach (Card card in cards)
 		{
 			if (card.GetState().GetType() == typeof(ArenaState))
 			{
 				currentEnemy.TakeDamage(card.attack);
+				card.energy -= 1;
 			}
 		}
 
 		// Step 3: Check if cards died
-		foreach (Card card in cards)
-		{
-			if (card.GetState().GetType() == typeof(ArenaState))
-			{
-				card.energy -= 1;
-				if (card.energy <= 0)
-				{
-					StartCoroutine("SlowDie", card);
-				}
-			}
-		}
+		CheckIfCardsDied();
 
 		if (currentEnemy.health <= 0)
 		{ // Check if enemy is dead
@@ -116,6 +96,33 @@ public class BattleManager : StateMachine
 		}
 
 		SetState(new EnemyTurnState());
+	}
+
+	public void CheckIfCardsDied()
+	{
+		foreach (Card card in cards)
+		{
+			if (card.GetState().GetType() == typeof(ArenaState))
+			{
+				if (card.energy <= 0)
+				{
+					StartCoroutine("SlowDie", card);
+				}
+			}
+		}
+		CheckIfLost();
+	}
+
+	public void CheckIfLost()
+	{
+		foreach (Card card in cards)
+		{
+			if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.energy > 0).Count() <= 0)
+			{
+				Debug.Log("You lose!");
+				GameManager.Instance.ResetGame();
+			}
+		}
 	}
 
 	IEnumerator SlowDie(Card deadCard)
