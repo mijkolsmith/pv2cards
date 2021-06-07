@@ -3,14 +3,40 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
-using UnityEngine.UI;
 using System.Linq;
 
-public class Card : StateMachine, IDamageable, IPointerEnterHandler, IPointerExitHandler
+public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandler
 {
-    [HideInInspector] public int attack;
+    // Interface implementation
+    [HideInInspector] public int attack { get; set; }
+    [HideInInspector] public int energy { get; set; }
+    
+    public void TakeDamage(int damage)
+    {
+        energy -= damage;
+    }
+
+    public void Effect(EffectStats stats) 
+    {
+        if (effect == CardEffect.ATTACKMODIFIER)
+		{
+            AttackEffectCard e = new AttackEffectCard(this);
+            e.Effect(stats);
+		}
+
+        if (effect == CardEffect.ENERGYMODIFIER)
+        {
+            EnergyEffectCard e = new EnergyEffectCard(this);
+            e.Effect(stats);
+        }
+    }
+
+    public CardEffect effect;
+    [HideInInspector] public int modifier;
+    [HideInInspector] public bool left;
+    public EffectStats effectStats;
+
     TextMeshProUGUI attackText;
-    [HideInInspector] public int energy;
     TextMeshProUGUI energyText;
 
     // Edit these variables however you like (They influence the animations)
@@ -48,6 +74,9 @@ public class Card : StateMachine, IDamageable, IPointerEnterHandler, IPointerExi
         siblingIndex = transform.GetSiblingIndex();
         myCanvas = GetComponent<Canvas>();
         myCanvas.sortingOrder = siblingIndex;
+
+        // Initialize an EffectStats class
+        effectStats = new EffectStats(modifier, left);
     }
 
     public new void SetState(State state)
@@ -60,16 +89,16 @@ public class Card : StateMachine, IDamageable, IPointerEnterHandler, IPointerExi
         }
     }
 
-    public void TakeDamage(int damage)
-    {
-        energy -= damage;
-    }
-
     public new void Update()
     {
         base.Update();
         attackText.text = attack.ToString();
         energyText.text = energy.ToString();
+    }
+
+    public void UpdateSiblingIndex()
+	{
+        siblingIndex = transform.GetSiblingIndex();
     }
 
     public void OnPointerEnter(PointerEventData eventData)

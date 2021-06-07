@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class HandState : State
 {
@@ -42,15 +43,13 @@ public class HandState : State
 		{// Play the card if someone releases Mouse0 when the card is hovering above endPos.y + endPosHeight
 			if (card.transform.localPosition.y > endPos.y)
 			{
-				//TODO: When a card is released above endPos.y + endPosHeight, use the card
+				// When a card is released above endPos.y + endPosHeight, use the card
 				if (GameManager.Instance.battleManager.playerMove == true)
 				{
-					Debug.Log("The Card " + card.gameObject.name + " is played");
-
 					card.transform.localScale = Vector3.zero * startScale;
 					GameManager.Instance.battleManager.PlayCard(card);
 
-					foreach (Card card in GameManager.Instance.battleManager.cards)
+					foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)))
                     {
 						card.posSet = false;
                     }

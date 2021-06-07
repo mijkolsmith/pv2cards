@@ -22,19 +22,19 @@ public class BattleManager : StateMachine
 		GenerateEnemies(5);
 		currentEnemy = enemies[enemyIndex];
 
-		enemyHealth.text = currentEnemy.health.ToString();
-		enemyAttack.text = currentEnemy.attackDamage.ToString();
-
+		//TODO: need to read this from the scene prefabs instead like the card instead of generating enemies
+		//enemyHealth.text = currentEnemy.health.ToString();
+		//enemyAttack.text = currentEnemy.attackDamage.ToString();
 	}
 
 	public void NextEnemy()
 	{
-		Debug.Log("NextEnemy");
+		Debug.Log("enemy " + enemyIndex + " died");
 		enemyIndex++;
-		Debug.Log("enemy count: " + enemies.Count + ",   index: " + enemyIndex);
 		if (enemies.Count > enemyIndex)
 		{
 			currentEnemy = enemies[enemyIndex];
+			Debug.Log("new enemy " + enemyIndex + "   health: " + currentEnemy.health + "  attack damage 1: " + currentEnemy.attackDamage[0] + " stagger: " + currentEnemy.staggerTotal);
 		}
 		else
 		{
@@ -53,10 +53,10 @@ public class BattleManager : StateMachine
 	}
 
 	public void GenerateEnemies(int amountOfEnemies)
-	{//TODO: enemy generation process
+	{
 		for (int i = 0; i < amountOfEnemies; i++)
 		{
-			enemies.Add(new TestEnemy(Random.Range(1, 2), 1, Random.Range(1, 10), Random.Range(1, 5)));
+			enemies.Add(new TestEnemy(new List<int>() { Random.Range(1, 2) }, 1, Random.Range(1, 10), Random.Range(1, 5))); ;
 		}
 	}
 
@@ -65,30 +65,65 @@ public class BattleManager : StateMachine
 		// Put the card on the board
 		playedCard.SetState(new ArenaState(playedCard));
 
-		// Calculate damage
-		foreach(Card card in cards)
-        {
-			//needs testing
+		// Changes in Hand & Arena: Update siblingIndex
+		foreach (Card card in cards)
+		{
+			if (card.GetState().GetType() == typeof(HandState) || card.GetState().GetType() == typeof(ArenaState))
+			{
+				card.UpdateSiblingIndex();
+			}
+		}
+
+		NextTurn();
+	}
+
+	public void NextTurn()
+    {
+		// Step 1: Apply effects
+		foreach (Card card in cards)
+		{
 			if (card.GetState().GetType() == typeof(ArenaState))
-            {
+			{
+				card.Effect(card.effectStats);
+			}
+		}
+
+		// Step 2: Calculate damage
+		foreach (Card card in cards)
+		{
+			if (card.GetState().GetType() == typeof(ArenaState))
+			{
 				currentEnemy.TakeDamage(card.attack);
+			}
+		}
+
+		// Step 3: Check if cards died
+		foreach (Card card in cards)
+		{
+			if (card.GetState().GetType() == typeof(ArenaState))
+			{
 				card.energy -= 1;
 				if (card.energy <= 0)
-                {
+				{
 					card.SetState(new DeathState(card));
-                }
-            }
-        }
-
-		// Check if enemy is dead
-		if (currentEnemy.health > 0)
-		{
-			SetState(new EnemyTurnState());
-			playerMove = false;
+				}
+			}
 		}
-		else
+
+		// Potential changes in Arena: Update siblingIndex
+		foreach (Card card in cards)
 		{
+			if (card.GetState().GetType() == typeof(ArenaState))
+			{
+				card.UpdateSiblingIndex();
+			}
+		}
+
+		if (currentEnemy.health <= 0)
+		{ // Check if enemy is dead
 			NextEnemy();
 		}
+
+		SetState(new EnemyTurnState());
 	}
 }
