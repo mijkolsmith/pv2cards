@@ -1,6 +1,6 @@
 using UnityEditor;
-[CustomEditor(typeof(Card))]
 
+[CustomEditor(typeof(Card))]
 public class CardEditor : Editor
 {
     public override void OnInspectorGUI()
@@ -8,17 +8,27 @@ public class CardEditor : Editor
         Card card = (Card)target;
 
         DrawDefaultInspector();
+        var modifier = serializedObject.FindProperty("modifier");
+        var left = serializedObject.FindProperty("left");
 
         if (card.effect != CardEffect.NONE)
         {
-            card.modifier = EditorGUILayout.IntField("Modifier", card.modifier);
-            card.left = EditorGUILayout.Toggle("Left", card.left);
+            EditorGUILayout.PropertyField(modifier);
+            EditorGUILayout.PropertyField(left);
+            
+            //card.modifier = EditorGUILayout.IntField("Modifier", card.modifier);
+            //card.left = EditorGUILayout.Toggle("Left", card.left);
+
+            serializedObject.ApplyModifiedProperties();
         }
 
         // Debugging
         EditorGUILayout.IntField("Attack(Debug)", card.attack);
         EditorGUILayout.IntField("Energy(Debug)", card.energy);
         EditorGUILayout.IntField("siblingIndex(Debug)", card.siblingIndex);
-        EditorGUILayout.TextField("State(Debug)", card.GetState().ToString());
+        if (EditorApplication.isPlaying)
+        {
+            EditorGUILayout.TextField("State(Debug)", card.GetState().ToString());
+        }
     }
 }
