@@ -46,7 +46,6 @@ public class HandState : State
 				// When a card is released above endPos.y + endPosHeight, use the card
 				if (GameManager.Instance.battleManager.playerMove == true)
 				{
-					card.transform.localScale = Vector3.zero * startScale;
 					GameManager.Instance.battleManager.PlayCard(card);
 
 					foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)))

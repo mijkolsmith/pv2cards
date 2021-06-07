@@ -105,17 +105,8 @@ public class BattleManager : StateMachine
 				card.energy -= 1;
 				if (card.energy <= 0)
 				{
-					card.SetState(new DeathState(card));
+					StartCoroutine("SlowDie", card);
 				}
-			}
-		}
-
-		// Potential changes in Arena: Update siblingIndex
-		foreach (Card card in cards)
-		{
-			if (card.GetState().GetType() == typeof(ArenaState))
-			{
-				card.UpdateSiblingIndex();
 			}
 		}
 
@@ -125,5 +116,19 @@ public class BattleManager : StateMachine
 		}
 
 		SetState(new EnemyTurnState());
+	}
+
+	IEnumerator SlowDie(Card deadCard)
+    {
+		yield return new WaitForSeconds(.5f);
+
+		deadCard.SetState(new DeathState(deadCard));
+		foreach (Card card in cards)
+		{
+			if (card.GetState().GetType() == typeof(ArenaState))
+			{
+				card.UpdateSiblingIndex();
+			}
+		}
 	}
 }

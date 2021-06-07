@@ -12,16 +12,6 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6810976964870229892, guid: 9fe01f92307b0e34faac109e7dc3337c,
-        type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6810976964870229892, guid: 9fe01f92307b0e34faac109e7dc3337c,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 6810976964870229893, guid: 9fe01f92307b0e34faac109e7dc3337c,
         type: 3}
       propertyPath: m_Pivot.x
@@ -130,12 +120,7 @@ PrefabInstance:
     - target: {fileID: 6810976964870229894, guid: 9fe01f92307b0e34faac109e7dc3337c,
         type: 3}
       propertyPath: m_Name
-      value: Enemy_Dog
-      objectReference: {fileID: 0}
-    - target: {fileID: 6810976964870229894, guid: 9fe01f92307b0e34faac109e7dc3337c,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: Enemy_Dog Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6810976966180410965, guid: 9fe01f92307b0e34faac109e7dc3337c,
         type: 3}

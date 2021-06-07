@@ -19,5 +19,6 @@ public class CardEditor : Editor
         EditorGUILayout.IntField("Attack(Debug)", card.attack);
         EditorGUILayout.IntField("Energy(Debug)", card.energy);
         EditorGUILayout.IntField("siblingIndex(Debug)", card.siblingIndex);
+        EditorGUILayout.TextField("State(Debug)", card.GetState().ToString());
     }
 }

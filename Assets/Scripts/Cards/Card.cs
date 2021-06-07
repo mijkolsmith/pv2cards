@@ -85,7 +85,14 @@ public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandl
         siblingIndex = transform.GetSiblingIndex();
         if (myCanvas != null)
         {
-            myCanvas.sortingOrder = siblingIndex;
+            if (GetState().GetType() == typeof(HandState))
+            {
+                myCanvas.sortingOrder = siblingIndex + 5;
+            }
+            else
+            {
+                myCanvas.sortingOrder = siblingIndex;
+            }
         }
     }
 
@@ -109,7 +116,14 @@ public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        myCanvas.sortingOrder = siblingIndex;
+        if (GetState().GetType() == typeof(HandState))
+        {
+            myCanvas.sortingOrder = siblingIndex + 5;
+        }
+        else
+        {
+            myCanvas.sortingOrder = siblingIndex;
+        }
         mouseHover = false;
     }
 
