@@ -19,7 +19,6 @@ public class ArenaState : State
 
 	public override IEnumerator Update()
 	{
-		//TODO: the text is weird and unreadable, card should lay differently, mouse hover maybe possibility
 		card.transform.localScale = new Vector3(1,1,1);
 		card.transform.localPosition = new Vector3(card.transform.localPosition.x, card.transform.localPosition.y, 0);
 		card.transform.localRotation = Quaternion.identity;

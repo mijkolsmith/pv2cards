@@ -26,20 +26,16 @@ public class AttackEffectCard : ICard
 	{
         if (stats.left)
         {
-            Debug.Log(card.name + "trying to add effect left");
             if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault() != null)
             {
                 GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault().attack += stats.modifier;
-                Debug.Log(card.name + "trying to apply effect to " + GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault());
             }
         }
         else if (!stats.left)
         {
-            Debug.Log(card.name + "trying to add effect right");
             if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault() != null)
             {
-                Debug.Log(card.name + "trying to apply effect to " + GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault());
-                GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault().attack += stats.modifier;
+               GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault().attack += stats.modifier;
             }
         }
     }

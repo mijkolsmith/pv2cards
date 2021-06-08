@@ -9,10 +9,6 @@ public class BattleManager : StateMachine
 	public List<Enemy> enemies = new List<Enemy>();
 	public List<Card> cards = new List<Card>();
 	public Enemy currentEnemy;
-	public TextMeshProUGUI enemyHealth;
-	public TextMeshProUGUI enemyAttack;
-	public TextMeshProUGUI enemyAttackTimes;
-	int enemyIndex = 0;
 
 	public bool playerMove;
 
@@ -22,33 +18,38 @@ public class BattleManager : StateMachine
 	}
 
 	public void NextEnemy()
-	{
-		Debug.Log("enemy " + enemyIndex + " died");
-		enemyIndex++;
-		if (enemies.Count > enemyIndex)
-		{
-			currentEnemy = enemies[enemyIndex];
-			Debug.Log("new enemy " + enemyIndex + "   health: " + currentEnemy.health + "  attack damage 1: " + currentEnemy.attackDamage[0] + " stagger: " + currentEnemy.staggerTotal);
-		}
-		else
-		{
+	{	
+		if(enemies.Where(x => x.health > 0).Count() <= 0)
+        {
 			Debug.Log("You win!");
-			GameManager.Instance.ResetGame();
+			GameManager.Instance.win.gameObject.SetActive(true);
+			GameManager.Instance.button.SetActive(true);
 		}
+
+		if (currentEnemy != null)
+		{
+			enemies.Remove(currentEnemy);
+			Destroy(currentEnemy.gameObject);
+		}
+		currentEnemy = enemies.Where(x => x != null).OrderBy(x => x.health).FirstOrDefault();
+		currentEnemy.transform.SetParent(GameManager.Instance.enemyHolder.transform);
+		currentEnemy.transform.localPosition = Vector3.zero;
+
+		Debug.Log("enemy name: " + currentEnemy.name + "   health: " + currentEnemy.health + "  attack damage 1: " + currentEnemy.attackDamage[0] + " stagger: " + currentEnemy.staggerTotal);
 	}
 
 	public void ResetGame()
 	{
-		enemyIndex = 0;
-		enemies.Clear();
 		SetState(new MenuState());
+		cards.Clear();
+		enemies.Clear();
 	}
 
 	public void PlayCard(Card playedCard)
     {
 		if (currentEnemy == null)
 		{
-			currentEnemy = enemies[enemyIndex];
+			NextEnemy();
 		}
 
 		// Put the card on the board
@@ -89,6 +90,7 @@ public class BattleManager : StateMachine
 
 		// Step 3: Check if cards died
 		CheckIfCardsDied();
+		if (currentEnemy == null) return;
 
 		if (currentEnemy.health <= 0)
 		{ // Check if enemy is dead
@@ -120,7 +122,9 @@ public class BattleManager : StateMachine
 			if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.energy > 0).Count() <= 0)
 			{
 				Debug.Log("You lose!");
-				GameManager.Instance.ResetGame();
+				GameManager.Instance.lose.SetActive(true);
+				GameManager.Instance.button.SetActive(true);
+				return;
 			}
 		}
 	}

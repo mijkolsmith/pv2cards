@@ -18,7 +18,7 @@ public class PlayerTurnState : State
         else if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).Count() != 0)
         {
 			Card card = GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).First();
-			card.SetState(new HandState(card));
+			card.StartCoroutine(card.SlowToHand());
 		}
 
 		// Update visuals

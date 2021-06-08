@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4955560651361944427, guid: 9fe01f92307b0e34faac109e7dc3337c,
         type: 3}
       propertyPath: health
-      value: 20
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6810976964470413689, guid: 9fe01f92307b0e34faac109e7dc3337c,
         type: 3}
@@ -100,12 +100,12 @@ PrefabInstance:
     - target: {fileID: 6810976964870229893, guid: 9fe01f92307b0e34faac109e7dc3337c,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6810976964870229893, guid: 9fe01f92307b0e34faac109e7dc3337c,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 63
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6810976964870229893, guid: 9fe01f92307b0e34faac109e7dc3337c,
         type: 3}

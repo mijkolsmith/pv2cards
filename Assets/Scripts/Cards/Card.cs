@@ -110,7 +110,7 @@ public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandl
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        StartCoroutine(slowChangeSortOrder());
+        StartCoroutine(SlowChangeSortOrder());
         mouseHover = true;
     }
 
@@ -127,12 +127,30 @@ public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandl
         mouseHover = false;
     }
 
-    IEnumerator slowChangeSortOrder()
+    IEnumerator SlowChangeSortOrder()
     {
         yield return new WaitForSeconds(0.2f);
         if (mouseHover)
         {
             myCanvas.sortingOrder = 200;
         }
+    }
+
+    public IEnumerator SlowToHand()
+    {
+        for (int i = 0; i < 40; i++)
+        {
+            transform.localPosition = new Vector3(transform.localPosition.x - i / 2, transform.localPosition.y - i / 2, transform.localPosition.z);
+            yield return new WaitForSeconds(.03f);
+        }
+
+        GameManager.Instance.endTurn.SetActive(true);
+        SetState(new HandState(this));
+
+        foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)))
+        {
+            card.posSet = false;
+        }
+        yield return null;
     }
 }

@@ -59,10 +59,9 @@ public class Hover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 		{// Play the card if someone releases Mouse0 when the card is hovering above endPos.y + endPosHeight
 			if (transform.localPosition.y > endPos.y + endPosHeight)
 			{
-				//TODO: When a card is released above endPos.y + endPosHeight, use the card
+				// When a card is released above endPos.y + endPosHeight, use the card
 				if (GameManager.Instance.battleManager.playerMove == true)
 				{
-					Debug.Log("The Card " + gameObject.name + " is played");
 					GameManager.Instance.battleManager.PlayCard(card);
 				}
 				else { Debug.Log("it's not your turn"); }

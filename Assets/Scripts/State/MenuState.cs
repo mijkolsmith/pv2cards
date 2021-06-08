@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MenuState : State
@@ -8,7 +9,7 @@ public class MenuState : State
 		//Go to main menu
 		if (SceneManager.GetActiveScene() != SceneManager.GetSceneByBuildIndex(0))
 		{
-			SceneManager.LoadScene(0);
+			GameManager.Instance.StartCoroutine(GameManager.Instance.SlowLoadScene(0, GameManager.Instance.transition));
 		}
 
 		Debug.Log("MenuState start");
