@@ -24,11 +24,19 @@ public class EnergyEffectCard : ICard
 	{
         if (stats.left)
         {
-            GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault().energy += stats.modifier;
+            if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault() != null)
+            {
+                if (!stats.multiply) GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault().energy += stats.modifier;
+                else GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault().energy *= stats.modifier;
+            }
         }
         else if (!stats.left)
         {
-            GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault().energy += stats.modifier;
+            if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault() != null)
+            {
+                if (!stats.multiply) GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault().energy += stats.modifier;
+                else GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault().energy *= stats.modifier;
+            }
         }
     }
 }

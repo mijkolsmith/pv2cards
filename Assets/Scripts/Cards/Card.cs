@@ -34,6 +34,7 @@ public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandl
     public CardEffect effect;
     [HideInInspector] public int modifier;
     [HideInInspector] public bool left;
+    [HideInInspector] public bool multiply;
     public EffectStats effectStats;
 
     TextMeshProUGUI attackText;

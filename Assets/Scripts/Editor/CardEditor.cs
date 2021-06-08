@@ -10,14 +10,13 @@ public class CardEditor : Editor
         DrawDefaultInspector();
         var modifier = serializedObject.FindProperty("modifier");
         var left = serializedObject.FindProperty("left");
+        var multiply = serializedObject.FindProperty("multiply");
 
         if (card.effect != CardEffect.NONE)
         {
             EditorGUILayout.PropertyField(modifier);
             EditorGUILayout.PropertyField(left);
-            
-            //card.modifier = EditorGUILayout.IntField("Modifier", card.modifier);
-            //card.left = EditorGUILayout.Toggle("Left", card.left);
+            EditorGUILayout.PropertyField(multiply);
 
             serializedObject.ApplyModifiedProperties();
         }

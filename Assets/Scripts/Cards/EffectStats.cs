@@ -8,4 +8,5 @@ public class EffectStats
 
     public int modifier;
     public bool left;
+    public bool multiply;
 }
