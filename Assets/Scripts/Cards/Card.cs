@@ -82,6 +82,10 @@ public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandl
 
     public new void SetState(State state)
     {
+        if (this == null)
+        {
+            return;
+        }
         base.SetState(state);
         siblingIndex = transform.GetSiblingIndex();
         if (myCanvas != null)

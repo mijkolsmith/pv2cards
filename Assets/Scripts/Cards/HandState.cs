@@ -18,7 +18,7 @@ public class HandState : State
 	public override IEnumerator Start()
 	{
 		Debug.Log(card.name + ": In Hand");
-		
+
 		startScale = card.transform.localScale.x;
 		card.transform.SetParent(GameManager.Instance.handPanel.transform);
 
