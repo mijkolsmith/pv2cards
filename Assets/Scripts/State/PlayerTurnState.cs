@@ -34,7 +34,7 @@ public class PlayerTurnState : State
 		}
 
 		// Update visuals
-		foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)))
+		foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)))
 		{
 			card.UpdateSiblingIndex();
 		}
