@@ -264,12 +264,12 @@ PrefabInstance:
     - target: {fileID: 1189690150828766661, guid: a5856b50bc42d7749931a1aaad262215,
         type: 3}
       propertyPath: m_text
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1873484498085780425, guid: a5856b50bc42d7749931a1aaad262215,
         type: 3}
       propertyPath: m_text
-      value: Give 4 energy to the card to your left
+      value: Give 3 energy to the card to your left
       objectReference: {fileID: 0}
     - target: {fileID: 4120818790445942647, guid: a5856b50bc42d7749931a1aaad262215,
         type: 3}
@@ -284,7 +284,7 @@ PrefabInstance:
     - target: {fileID: 4120818790445942647, guid: a5856b50bc42d7749931a1aaad262215,
         type: 3}
       propertyPath: modifier
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8172371621470787258, guid: a5856b50bc42d7749931a1aaad262215,
         type: 3}
@@ -1228,7 +1228,7 @@ PrefabInstance:
     - target: {fileID: 689314274848562372, guid: cd0e23ee655d052418b4399f787f0a6e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 689314274848562372, guid: cd0e23ee655d052418b4399f787f0a6e,
         type: 3}
@@ -2655,14 +2655,14 @@ RectTransform:
   - {fileID: 17744149}
   - {fileID: 126126990}
   - {fileID: 1057674013}
-  - {fileID: 1775989798}
   - {fileID: 1601036491}
+  - {fileID: 446819887}
   - {fileID: 859963423}
   - {fileID: 639872273}
   - {fileID: 295217768}
   - {fileID: 22208515}
   - {fileID: 414598460}
-  - {fileID: 446819887}
+  - {fileID: 1775989798}
   - {fileID: 599114287}
   - {fileID: 1650293474}
   - {fileID: 1651065418}
@@ -3553,7 +3553,7 @@ PrefabInstance:
     - target: {fileID: 6742335903140775473, guid: 0377c1fef23ff994384c5543334d32df,
         type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6742335903140775473, guid: 0377c1fef23ff994384c5543334d32df,
         type: 3}
@@ -3688,12 +3688,12 @@ PrefabInstance:
     - target: {fileID: 1189690150828766661, guid: a5856b50bc42d7749931a1aaad262215,
         type: 3}
       propertyPath: m_text
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1873484498085780425, guid: a5856b50bc42d7749931a1aaad262215,
         type: 3}
       propertyPath: m_text
-      value: Give 4 energy to the card to your left
+      value: Give 3 energy to the card to your left
       objectReference: {fileID: 0}
     - target: {fileID: 4120818790445942647, guid: a5856b50bc42d7749931a1aaad262215,
         type: 3}
@@ -3708,7 +3708,7 @@ PrefabInstance:
     - target: {fileID: 4120818790445942647, guid: a5856b50bc42d7749931a1aaad262215,
         type: 3}
       propertyPath: modifier
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8172371621470787258, guid: a5856b50bc42d7749931a1aaad262215,
         type: 3}
@@ -4420,7 +4420,7 @@ PrefabInstance:
     - target: {fileID: 4476531105484609518, guid: 43f7230f5b8984e41b02342198b4ab27,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4476531105484609518, guid: 43f7230f5b8984e41b02342198b4ab27,
         type: 3}
