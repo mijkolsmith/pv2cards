@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using TMPro;
 using System.Linq;
 
-public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandler
+public class Card : StateMachine, ICard
 {
     // Interface implementation
     [HideInInspector] public int attack { get; set; }
@@ -87,22 +87,11 @@ public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandl
             return;
         }
         base.SetState(state);
-        siblingIndex = transform.GetSiblingIndex();
-        if (myCanvas != null)
-        {
-            if (GetState().GetType() == typeof(HandState))
-            {
-                myCanvas.sortingOrder = siblingIndex + 5;
-            }
-            else
-            {
-                myCanvas.sortingOrder = siblingIndex;
-            }
-        }
     }
 
     public new void Update()
     {
+        mouseHover = GetComponent<Hover>().mouseHover;
         base.Update();
         attackText.text = attack.ToString();
         energyText.text = energy.ToString();
@@ -116,7 +105,6 @@ public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandl
     public void OnPointerEnter(PointerEventData eventData)
     {
         StartCoroutine(SlowChangeSortOrder());
-        mouseHover = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -129,7 +117,6 @@ public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandl
         {
             myCanvas.sortingOrder = siblingIndex;
         }
-        mouseHover = false;
     }
 
     IEnumerator SlowChangeSortOrder()
@@ -143,6 +130,7 @@ public class Card : StateMachine, ICard, IPointerEnterHandler, IPointerExitHandl
 
     public IEnumerator SlowToHand()
     {
+        //TODO: better animation
         for (int i = 0; i < 40; i++)
         {
             transform.localPosition = new Vector3(transform.localPosition.x - i / 2, transform.localPosition.y - i / 2, transform.localPosition.z);

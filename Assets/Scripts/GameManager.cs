@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
 	public GameObject lose;
 	public GameObject button;
 	public GameObject endTurn;
+	public GameObject deckBack;
 
 	private void Awake()
 	{
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex == 1 && (handPanel == null || arenaPanel == null || transition == null || win == null || lose == null))
         {
-			List<CanvasRenderer> panels = FindObjectsOfType<CanvasRenderer>().Where(x => x.name == "HandPanel" || x.name == "ArenaPanel" || x.name == "CurrentEnemy" || x.name == "Win" || x.name == "Lose" || x.name == "GoToMenuButton" || x.name == "EndTurn").ToList();
+			List<CanvasRenderer> panels = FindObjectsOfType<CanvasRenderer>().Where(x => x.name == "HandPanel" || x.name == "ArenaPanel" || x.name == "CurrentEnemy" || x.name == "Win" || x.name == "Lose" || x.name == "GoToMenuButton" || x.name == "EndTurn" || x.name == "DeckBack").ToList();
 			handPanel = panels.Where(x => x.name == "HandPanel").FirstOrDefault().gameObject;
 			arenaPanel = panels.Where(x => x.name == "ArenaPanel").FirstOrDefault().gameObject;
 			enemyHolder = panels.Where(x => x.name == "CurrentEnemy").FirstOrDefault().gameObject;
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
 			lose = panels.Where(x => x.name == "Lose").FirstOrDefault().gameObject;
 			button = panels.Where(x => x.name == "GoToMenuButton").FirstOrDefault().gameObject;
 			endTurn = panels.Where(x => x.name == "EndTurn").FirstOrDefault().gameObject;
+			deckBack = panels.Where(x => x.name == "DeckBack").FirstOrDefault().gameObject;
 
 			win.SetActive(false);
 			lose.SetActive(false);

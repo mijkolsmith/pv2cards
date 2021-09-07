@@ -134,12 +134,5 @@ public class BattleManager : StateMachine
 		yield return new WaitForSeconds(.5f);
 
 		deadCard.SetState(new DeathState(deadCard));
-		foreach (Card card in cards)
-		{
-			if (card.GetState().GetType() == typeof(ArenaState))
-			{
-				card.UpdateSiblingIndex();
-			}
-		}
 	}
 }

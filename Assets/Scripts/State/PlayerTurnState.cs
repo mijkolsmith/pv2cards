@@ -11,26 +11,24 @@ public class PlayerTurnState : State
 		// Draw 5 cards at the start, otherwise draw 1 card
 		if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)).Count() == 0)
         {
-			// it's not random, but aran wants to keep it this way
-			List<Card> cardsToDraw = GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).ToList();
-			GameManager.Instance.endTurn.SetActive(true);
-
 			for (int i = 0; i < 5; i++)
 			{
-				if (cardsToDraw.ElementAtOrDefault(i) != null)
+				List<Card> drawableCards = GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).ToList();
+				int x = Random.Range(0, drawableCards.Count);
+				if (drawableCards.ElementAtOrDefault(x) != null)
 				{
-					cardsToDraw[i].SetState(new HandState(cardsToDraw[i]));
+					drawableCards[x].SetState(new HandState(drawableCards[x]));
 				}
 			}
 		}
         else if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).Count() != 0)
         {
-			Card card = GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).First();
+			Card card = GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).ElementAtOrDefault(Random.Range(0, GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).ToList().Count));
 			card.StartCoroutine(card.SlowToHand());
 		}
 		else if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(DeckState)).Count() == 0)
-        {
-			GameManager.Instance.endTurn.SetActive(true);
+		{
+			GameManager.Instance.deckBack.SetActive(false);
 		}
 
 		// Update visuals
@@ -46,6 +44,7 @@ public class PlayerTurnState : State
 
 		// Display it's the player's turn
 		GameManager.Instance.battleManager.playerMove = true;
+		GameManager.Instance.endTurn.SetActive(true);
 
 		yield return null;
 	}

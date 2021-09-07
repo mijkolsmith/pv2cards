@@ -524,6 +524,7 @@ GameObject:
   - component: {fileID: 1997285677}
   - component: {fileID: 8209010464666943521}
   - component: {fileID: 958927647897327018}
+  - component: {fileID: -1203856298523262963}
   m_Layer: 5
   m_Name: Kaart_Basis
   m_TagString: Untagged
@@ -568,7 +569,7 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4852243296477721243}
-  m_CullTransparentMesh: 1
+  m_CullTransparentMesh: 0
 --- !u!223 &1997285677
 Canvas:
   m_ObjectHideFlags: 0
@@ -627,6 +628,19 @@ MonoBehaviour:
   mouseHover: 0
   myCanvas: {fileID: 0}
   posSet: 0
+--- !u!114 &-1203856298523262963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4852243296477721243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 186656701967dcd459b1fac26a066ca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseHover: 0
 --- !u!1 &5406288408411052812
 GameObject:
   m_ObjectHideFlags: 0

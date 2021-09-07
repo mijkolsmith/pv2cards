@@ -22,6 +22,12 @@ public class HandState : State
 		startScale = card.transform.localScale.x;
 		card.transform.SetParent(GameManager.Instance.handPanel.transform);
 
+		card.siblingIndex = card.transform.GetSiblingIndex();
+		if (card.myCanvas != null)
+		{
+			card.myCanvas.sortingOrder = card.siblingIndex + 5;
+		}
+
 		yield return null;
 	}
 
@@ -41,7 +47,8 @@ public class HandState : State
 
 		if (Input.GetKeyUp(KeyCode.Mouse0))
 		{// Play the card if someone releases Mouse0 when the card is hovering above endPos.y + endPosHeight
-			if (card.transform.localPosition.y > endPos.y)
+			//TODO: Play the card if the card hovers over an empty card
+			if (card.transform.localPosition.y > 0)
 			{
 				// When a card is released above endPos.y + endPosHeight, use the card
 				if (GameManager.Instance.battleManager.playerMove == true)
