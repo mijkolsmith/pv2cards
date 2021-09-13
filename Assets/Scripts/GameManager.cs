@@ -20,7 +20,6 @@ public class GameManager : MonoBehaviour
 		}
 	}
 
-	public float volume;
 	public BattleManager battleManager;
 
 	public GameObject handPanel;
@@ -88,4 +87,9 @@ public class GameManager : MonoBehaviour
 	{
 		battleManager.ResetGame();
 	}
+
+	public void PlayClip(AudioClip clip)
+    {
+		GetComponent<AudioSource>().PlayOneShot(clip);
+    }
 }

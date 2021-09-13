@@ -11,6 +11,7 @@ public class ArenaState : State
 
 	public override IEnumerator Start()
 	{
+		GameManager.Instance.arenaPanel.GetComponent<AudioSource>().Play();
 		Debug.Log(card.name + ": In Arena");
 		//TODO: implement new hovercheck so cards know which card is left or right of them
 		Transform location = GameManager.Instance.arenaPanel.transform.GetComponentsInChildren<CanvasRenderer>().Where(x => x.transform.childCount == 1 && x.gameObject.GetComponentInChildren<HoverCheck>().mouseHover == true).FirstOrDefault().transform;
