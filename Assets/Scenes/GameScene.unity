@@ -4730,7 +4730,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1659833805}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2d6f3ed2c02c522418bd98ce2f6934db, type: 3}
+  m_Script: {fileID: 11500000, guid: a1a5fb29a6cb8004d8e1dcce36e62214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1659833808
@@ -4778,7 +4778,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1659833807}
-        m_TargetAssemblyTypeName: EndTurn, Assembly-CSharp
+        m_TargetAssemblyTypeName: ButtonBehaviour, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 356c1398f9584404bb7259f07f0d4d19,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1659833807}
+        m_TargetAssemblyTypeName: ButtonBehaviour, Assembly-CSharp
         m_MethodName: NextTurn
         m_Mode: 1
         m_Arguments:
@@ -6090,9 +6103,9 @@ GameObject:
   - component: {fileID: 2061572385}
   - component: {fileID: 2061572384}
   - component: {fileID: 2061572383}
-  - component: {fileID: 2061572382}
   - component: {fileID: 2061572386}
   - component: {fileID: 2061572387}
+  - component: {fileID: 2061572382}
   m_Layer: 5
   m_Name: GoToMenuButton
   m_TagString: Untagged
@@ -6128,7 +6141,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2061572380}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5a49ec8a6caf8442925130028e7db36, type: 3}
+  m_Script: {fileID: 11500000, guid: a1a5fb29a6cb8004d8e1dcce36e62214, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2061572383
@@ -6176,7 +6189,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2061572382}
-        m_TargetAssemblyTypeName: GoToMenu, Assembly-CSharp
+        m_TargetAssemblyTypeName: ButtonBehaviour, Assembly-CSharp
+        m_MethodName: PlayClip
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 8300000, guid: 356c1398f9584404bb7259f07f0d4d19,
+            type: 3}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2061572382}
+        m_TargetAssemblyTypeName: ButtonBehaviour, Assembly-CSharp
         m_MethodName: ResetGame
         m_Mode: 1
         m_Arguments:
