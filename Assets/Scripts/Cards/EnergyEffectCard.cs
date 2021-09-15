@@ -24,18 +24,20 @@ public class EnergyEffectCard : ICard
 	{
         if (stats.left)
         {
-            if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault() != null)
+            Card cardToChange = GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault();
+            if (cardToChange != null)
             {
-                if (!stats.multiply) GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault().energy += stats.modifier;
-                else GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault().energy *= stats.modifier;
+                if (!stats.multiply) cardToChange.energy += stats.modifier;
+                else cardToChange.energy *= stats.modifier;
             }
         }
         else if (!stats.left)
         {
-            if (GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault() != null)
+            Card cardToChange = GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex - 1).FirstOrDefault();
+            if (cardToChange != null)
             {
-                if (!stats.multiply) GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault().energy += stats.modifier;
-                else GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(ArenaState) && x.siblingIndex == card.siblingIndex + 1).FirstOrDefault().energy *= stats.modifier;
+                if (!stats.multiply) cardToChange.energy += stats.modifier;
+                else cardToChange.energy *= stats.modifier;
             }
         }
     }

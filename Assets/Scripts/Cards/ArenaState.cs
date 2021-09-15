@@ -16,15 +16,16 @@ public class ArenaState : State
 		//TODO: implement new hovercheck so cards know which card is left or right of them
 		Transform location = GameManager.Instance.arenaPanel.transform.GetComponentsInChildren<CanvasRenderer>().Where(x => x.transform.childCount == 1 && x.gameObject.GetComponentInChildren<HoverCheck>().mouseHover == true).FirstOrDefault().transform;
 		card.transform.SetParent(location, true);
+		card.siblingIndex = location.GetSiblingIndex();
 
 		if (card.myCanvas != null)
 		{
 			card.myCanvas.sortingOrder = 1;
 		}
 
-		card.transform.GetComponent<RectTransform>().anchorMin = new Vector2(0.5f, 0.5f);
-		card.transform.GetComponent<RectTransform>().anchorMax = new Vector2(0.5f, 0.5f);
-		card.transform.GetComponent<RectTransform>().pivot = new Vector2(0.5f, 0.5f);
+		card.rt.anchorMin = new Vector2(0.5f, 0.5f);
+		card.rt.anchorMax = new Vector2(0.5f, 0.5f);
+		card.rt.pivot = new Vector2(0.5f, 0.5f);
 
 		yield return null;
 	}

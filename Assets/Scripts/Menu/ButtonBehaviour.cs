@@ -2,8 +2,9 @@ using UnityEngine;
 
 public class ButtonBehaviour : MonoBehaviour
 {
-    public void Close()
+    public void CloseTutorial()
     {
+        GameManager.Instance.ExecuteCoroutine(GameManager.Instance.slowCloseTutorial());
         transform.parent.gameObject.SetActive(false);
     }
 

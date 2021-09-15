@@ -18,8 +18,8 @@ public class BattleManager : StateMachine
 	}
 
 	public void NextEnemy()
-	{	
-		if(enemies.Where(x => x.health > 0).Count() <= 0)
+	{
+		if (enemies.Where(x => x.health > 0).Count() <= 0)
         {
 			Debug.Log("You win!");
 			GameManager.Instance.win.gameObject.SetActive(true);
@@ -55,20 +55,20 @@ public class BattleManager : StateMachine
 		// Put the card on the board
 		playedCard.SetState(new ArenaState(playedCard));
 
-		// Changes in Hand & Arena: Update siblingIndex
-		foreach (Card card in cards)
-		{
-			if (card.GetState().GetType() == typeof(HandState) || card.GetState().GetType() == typeof(ArenaState))
-			{
-				card.UpdateSiblingIndex();
-			}
-		}
-
 		NextTurn();
 	}
 
 	public void NextTurn()
     {
+		//Update the sibling index variable
+		foreach (Card card in cards)
+		{
+			if (card.GetState().GetType() == typeof(HandState))
+			{
+				card.UpdateSiblingIndex();
+			}
+		}
+
 		// Step 1: Apply effects
 		foreach (Card card in cards)
 		{

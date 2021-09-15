@@ -35,7 +35,5 @@ public class HoverCheck : MonoBehaviour
         {
             mouseHover = false;
         }
-
-        Debug.Log("mousehover:" + gameObject.name + mouseHover);
     }
 }

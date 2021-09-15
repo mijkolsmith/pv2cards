@@ -14,13 +14,16 @@ public class HandState : State
 
 	public float startScale;
 	private bool firstFramePassed;
+	private bool hovering = false;
+
 
 	public override IEnumerator Start()
 	{
-		Debug.Log(card.name + ": In Hand");
+		Debug.Log(card.name + ": In Hand ");
 
 		startScale = card.transform.localScale.x;
 		card.transform.SetParent(GameManager.Instance.handPanel.transform);
+		card.rt.pivot = new Vector2(0.5f, 0f);
 
 		card.siblingIndex = card.transform.GetSiblingIndex();
 		if (card.myCanvas != null)
@@ -35,8 +38,8 @@ public class HandState : State
 	{
 		if (!card.posSet && firstFramePassed)
 		{
-			startPos = card.transform.localPosition;
-			endPos = new Vector3(card.transform.localPosition.x, card.transform.localPosition.y + card.endPosHeight, card.transform.localPosition.z);
+			startPos = new Vector3(card.rt.localPosition.x, card.rt.localPosition.y, card.rt.localPosition.z);
+			endPos = new Vector3(card.rt.localPosition.x, card.rt.localPosition.y + card.endPosHeight, card.rt.localPosition.z);
 			card.posSet = true;
 		}
 
@@ -46,53 +49,64 @@ public class HandState : State
 		}
 
 		if (Input.GetKeyUp(KeyCode.Mouse0))
-		{// Play the card if someone releases Mouse0 when the card is hovering above endPos.y + endPosHeight
-			//TODO: Play the card if the card hovers over an empty card
-			if (card.transform.localPosition.y > 0)
+		{// Play the card if someone releases Mouse0 when the card is above an empty slot
+			if (GameManager.Instance.battleManager.playerMove == true)
 			{
-				// When a card is released above endPos.y + endPosHeight, use the card
-				if (GameManager.Instance.battleManager.playerMove == true)
+				if (GameManager.Instance.arenaPanel.transform.GetComponentsInChildren<CanvasRenderer>().Where(x => x.transform.childCount == 1 && x.gameObject.GetComponentInChildren<HoverCheck>().mouseHover == true).FirstOrDefault() != null && hovering)
 				{
 					GameManager.Instance.battleManager.PlayCard(card);
-
+					
 					foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)))
-                    {
+					{
 						card.posSet = false;
-                    }
+					}
 				}
-				else { Debug.Log("it's not your turn"); }
 			}
+			else { Debug.Log("it's not your turn"); }
 		}
-		if (card.mouseHover && Input.GetKey(KeyCode.Mouse0))
+
+		if (card.mouseHover && Input.GetKey(KeyCode.Mouse0) && GameManager.Instance.tutorialClosed == true)
 		{// Drag the card whenever Mouse0 is pressed
 			card.transform.position = new Vector3(Input.mousePosition.x, Input.mousePosition.y - card.height / 2, Input.mousePosition.z);
+			hovering = true;
 		}
 		if (card.mouseHover && !Input.GetKey(KeyCode.Mouse0))
 		{// Animate the card when hovering over it
-		 // If the Lerp is close enough, don't bother lerping anymore
-			if (card.transform.localPosition.y < endPos.y)
+			// If the Lerp is close enough, don't bother lerping anymore
+			if (card.rt.localPosition.y > endPos.y - 0.001 && card.rt.localPosition.y < endPos.y + 0.001 &&
+				card.rt.localScale.x > card.endScale - 0.001 && card.rt.localScale.x < card.endScale + 0.001)
 			{
-				if (card.transform.localPosition.y > endPos.y - 0.001 && card.transform.localScale.x > card.endScale - 0.001)
-				{ yield break; }
+				card.isLerping = false;
+				yield break; 
 			}
 
+			card.isLerping = true;
 			// Lerp transform.position to endPos
-			card.transform.localPosition = Vector3.Lerp(card.transform.localPosition, endPos, card.animationSpeed * Time.deltaTime);
+			card.rt.localPosition = Vector3.Lerp(card.rt.localPosition, endPos, card.animationSpeed * Time.deltaTime);
 
-			// Lerp card.transform.localScale to endScale
-			card.transform.localScale = Vector3.Lerp(card.transform.localScale, Vector3.one * card.endScale, card.animationSpeed * Time.deltaTime);
+			// Lerp card.rectTransform.localScale to endScale
+			card.rt.localScale = Vector3.Lerp(card.rt.localScale, Vector3.one * card.endScale, card.animationSpeed * Time.deltaTime);
 		}
+
 		if (!card.mouseHover)
 		{
 			// If the Lerp is close enough, don't bother lerping anymore
-			if (card.transform.localPosition.y < startPos.y + 0.01 && card.transform.localScale.x < startScale + 0.01)
-			{ yield break; }
+			if (card.rt.localPosition.y > startPos.y - 0.001f && card.rt.localPosition.y < startPos.y + 0.001f &&
+				card.rt.localScale.x > startScale - 0.001f && card.rt.localScale.x < startScale + 0.001f)
+			{
+				card.isLerping = false;
+				card.rt.localPosition = new Vector3(card.rt.localPosition.x, startPos.y, card.rt.localPosition.z);
+				card.rt.localScale = Vector3.one * startScale;
+				yield break; 
+			}
+
+			card.isLerping = true;
 
 			// Reset position with Lerp
-			card.transform.localPosition = Vector3.Lerp(card.transform.localPosition, startPos, card.animationSpeed * Time.deltaTime);
+			card.rt.localPosition = Vector3.Lerp(card.rt.localPosition, startPos, card.animationSpeed * Time.deltaTime);
 
 			// Reset localScale with Lerp
-			card.transform.localScale = Vector3.Lerp(card.transform.localScale, Vector3.one * startScale, card.animationSpeed * Time.deltaTime);
+			card.rt.localScale = Vector3.Lerp(card.rt.localScale, Vector3.one * startScale, card.animationSpeed * Time.deltaTime);
 		}
 
 		yield return null;

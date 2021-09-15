@@ -178,6 +178,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6442816423199122019, guid: dd62a67879ade474eaf7544c9d814ad8,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442816423199122019, guid: dd62a67879ade474eaf7544c9d814ad8,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442816423199122019, guid: dd62a67879ade474eaf7544c9d814ad8,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6442816423199122019, guid: dd62a67879ade474eaf7544c9d814ad8,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -5186,7 +5201,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1753048246}
         m_TargetAssemblyTypeName: ButtonBehaviour, Assembly-CSharp
-        m_MethodName: Close
+        m_MethodName: CloseTutorial
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

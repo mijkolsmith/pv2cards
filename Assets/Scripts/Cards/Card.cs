@@ -52,6 +52,10 @@ public class Card : StateMachine, ICard
     [HideInInspector] public bool mouseHover = false;
     [HideInInspector] public Canvas myCanvas;
     [HideInInspector] public bool posSet;
+    [HideInInspector] public RectTransform rt;
+
+    //TODO: remove after debug
+    public bool isLerping;
 
     public void Start()
     {
@@ -68,7 +72,7 @@ public class Card : StateMachine, ICard
         }
 
         // Apply the width and height
-        RectTransform rt = GetComponent<RectTransform>();
+        rt = GetComponent<RectTransform>();
         rt.sizeDelta = new Vector2(width, height);
 
         // Set some starting variables for later use
@@ -100,6 +104,10 @@ public class Card : StateMachine, ICard
     public void UpdateSiblingIndex()
 	{
         siblingIndex = transform.GetSiblingIndex();
+        if (myCanvas != null)
+        {
+            myCanvas.sortingOrder = siblingIndex + 5;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)

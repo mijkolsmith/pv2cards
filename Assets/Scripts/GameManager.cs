@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
 	public GameObject endTurn;
 	public GameObject deckBack;
 
+	public bool tutorialClosed = false;
+
 	private void Awake()
 	{
 		if (instance == null)
@@ -70,6 +72,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
+	public IEnumerator slowCloseTutorial()
+    {
+		yield return new WaitForSeconds(1f);
+		tutorialClosed = true;
+	}
+
 	public IEnumerator SlowLoadScene(int scene, Image transition)
 	{
 		for (int i = 0; i < 100; i++)
@@ -86,6 +94,11 @@ public class GameManager : MonoBehaviour
 	public void ResetGame()
 	{
 		battleManager.ResetGame();
+	}
+
+	public void ExecuteCoroutine(IEnumerator coroutine)
+	{
+		StartCoroutine(coroutine);
 	}
 
 	public void PlayClip(AudioClip clip)
