@@ -50,12 +50,10 @@ public class Card : StateMachine, ICard
     // Other variables needed for the script to work
     [HideInInspector] public int siblingIndex;
     [HideInInspector] public bool mouseHover = false;
+    [HideInInspector] private bool executed = false;
     [HideInInspector] public Canvas myCanvas;
     [HideInInspector] public bool posSet;
     [HideInInspector] public RectTransform rt;
-
-    //TODO: remove after debug
-    public bool isLerping;
 
     public void Start()
     {
@@ -99,6 +97,24 @@ public class Card : StateMachine, ICard
         base.Update();
         attackText.text = attack.ToString();
         energyText.text = energy.ToString();
+
+        if (mouseHover && !executed)
+        {
+            StartCoroutine(SlowChangeSortOrder());
+            executed = true;
+        }
+        else if (!mouseHover && executed)
+        {
+            if (GetState().GetType() == typeof(HandState))
+            {
+                myCanvas.sortingOrder = siblingIndex + 5;
+            }
+            else
+            {
+                myCanvas.sortingOrder = siblingIndex;
+            }
+            executed = false;
+        }
     }
 
     public void UpdateSiblingIndex()
@@ -107,23 +123,6 @@ public class Card : StateMachine, ICard
         if (myCanvas != null)
         {
             myCanvas.sortingOrder = siblingIndex + 5;
-        }
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        StartCoroutine(SlowChangeSortOrder());
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (GetState().GetType() == typeof(HandState))
-        {
-            myCanvas.sortingOrder = siblingIndex + 5;
-        }
-        else
-        {
-            myCanvas.sortingOrder = siblingIndex;
         }
     }
 

@@ -25,7 +25,6 @@ public class CardEditor : Editor
         EditorGUILayout.IntField("Attack(Debug)", card.attack);
         EditorGUILayout.IntField("Energy(Debug)", card.energy);
         EditorGUILayout.IntField("siblingIndex(Debug)", card.siblingIndex);
-        EditorGUILayout.IntField("isLerping(Debug)", card.isLerping ? 1 : 0);
         if (EditorApplication.isPlaying)
         {
             EditorGUILayout.TextField("State(Debug)", card.GetState().ToString());

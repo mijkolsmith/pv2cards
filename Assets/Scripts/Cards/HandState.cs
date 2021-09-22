@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class HandState : State
 {
@@ -38,7 +39,8 @@ public class HandState : State
 	{
 		if (!card.posSet && firstFramePassed)
 		{
-			startPos = new Vector3(card.rt.localPosition.x, card.rt.localPosition.y, card.rt.localPosition.z);
+			LayoutRebuilder.ForceRebuildLayoutImmediate(GameManager.Instance.handPanel.GetComponent<RectTransform>());
+			startPos = new Vector3(card.rt.localPosition.x, 0, card.rt.localPosition.z);
 			endPos = new Vector3(card.rt.localPosition.x, card.rt.localPosition.y + card.endPosHeight, card.rt.localPosition.z);
 			card.posSet = true;
 		}
@@ -76,11 +78,9 @@ public class HandState : State
 			if (card.rt.localPosition.y > endPos.y - 0.001 && card.rt.localPosition.y < endPos.y + 0.001 &&
 				card.rt.localScale.x > card.endScale - 0.001 && card.rt.localScale.x < card.endScale + 0.001)
 			{
-				card.isLerping = false;
 				yield break; 
 			}
 
-			card.isLerping = true;
 			// Lerp transform.position to endPos
 			card.rt.localPosition = Vector3.Lerp(card.rt.localPosition, endPos, card.animationSpeed * Time.deltaTime);
 
@@ -94,13 +94,10 @@ public class HandState : State
 			if (card.rt.localPosition.y > startPos.y - 0.001f && card.rt.localPosition.y < startPos.y + 0.001f &&
 				card.rt.localScale.x > startScale - 0.001f && card.rt.localScale.x < startScale + 0.001f)
 			{
-				card.isLerping = false;
 				card.rt.localPosition = new Vector3(card.rt.localPosition.x, startPos.y, card.rt.localPosition.z);
 				card.rt.localScale = Vector3.one * startScale;
 				yield break; 
 			}
-
-			card.isLerping = true;
 
 			// Reset position with Lerp
 			card.rt.localPosition = Vector3.Lerp(card.rt.localPosition, startPos, card.animationSpeed * Time.deltaTime);
