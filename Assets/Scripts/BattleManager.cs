@@ -55,12 +55,13 @@ public class BattleManager : StateMachine
 		// Put the card on the board
 		playedCard.SetState(new ArenaState(playedCard));
 
-		NextTurn();
+		GameManager.Instance.playerTurn.SetActive(false);
+		GameManager.Instance.ExecuteCoroutine(NextTurn());
 	}
 
-	public void NextTurn()
+	public IEnumerator NextTurn()
     {
-		//Update the sibling index variable
+		// Update the sibling index variable
 		foreach (Card card in cards)
 		{
 			if (card.GetState().GetType() == typeof(HandState))
@@ -75,6 +76,7 @@ public class BattleManager : StateMachine
 			if (card.GetState().GetType() == typeof(ArenaState))
 			{
 				card.Effect(card.effectStats);
+				yield return new WaitForSeconds(.2f);
 			}
 		}
 
@@ -85,19 +87,25 @@ public class BattleManager : StateMachine
 			{
 				currentEnemy.TakeDamage(card.attack);
 				card.energy -= 1;
+				yield return new WaitForSeconds(.2f);
 			}
 		}
 
 		// Step 3: Check if cards died
 		CheckIfCardsDied();
-		if (currentEnemy == null) return;
+		if (currentEnemy == null) yield return null;
+
+		yield return new WaitForSeconds(.2f);
 
 		if (currentEnemy.health <= 0)
 		{ // Check if enemy is dead
 			NextEnemy();
 		}
 
+		yield return new WaitForSeconds(.2f);
+
 		SetState(new EnemyTurnState());
+		yield return null;
 	}
 
 	public void CheckIfCardsDied()
@@ -108,7 +116,7 @@ public class BattleManager : StateMachine
 			{
 				if (card.energy <= 0)
 				{
-					StartCoroutine("SlowDie", card);
+					card.SetState(new DeathState(card));
 				}
 			}
 		}
@@ -127,12 +135,5 @@ public class BattleManager : StateMachine
 				return;
 			}
 		}
-	}
-
-	IEnumerator SlowDie(Card deadCard)
-    {
-		yield return new WaitForSeconds(.5f);
-
-		deadCard.SetState(new DeathState(deadCard));
 	}
 }

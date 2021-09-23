@@ -79,7 +79,7 @@ public class Card : StateMachine, ICard
         myCanvas.sortingOrder = siblingIndex;
 
         // Initialize an EffectStats class
-        effectStats = new EffectStats(modifier, left);
+        effectStats = new EffectStats(modifier, left, multiply);
     }
 
     public new void SetState(State state)
@@ -144,7 +144,6 @@ public class Card : StateMachine, ICard
             yield return new WaitForSeconds(.03f);
         }
 
-        GameManager.Instance.endTurn.SetActive(true);
         SetState(new HandState(this));
 
         foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)))

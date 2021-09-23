@@ -44,7 +44,8 @@ public class PlayerTurnState : State
 
 		// Display it's the player's turn
 		GameManager.Instance.battleManager.playerMove = true;
-		GameManager.Instance.endTurn.SetActive(true);
+		GameManager.Instance.enemyTurn.SetActive(false);
+		GameManager.Instance.playerTurn.SetActive(true);
 
 		yield return null;
 	}

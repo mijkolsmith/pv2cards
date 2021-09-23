@@ -22,7 +22,8 @@ public class ButtonBehaviour : MonoBehaviour
     {
         if (GameManager.Instance.battleManager.playerMove == true)
         {
-            GameManager.Instance.battleManager.NextTurn();
+            GameManager.Instance.playerTurn.SetActive(false);
+            GameManager.Instance.ExecuteCoroutine(GameManager.Instance.battleManager.NextTurn());
         }
     }
 }

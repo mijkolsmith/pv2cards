@@ -11,7 +11,7 @@ public class EnemyTurnState : State
 		enemy = GameManager.Instance.battleManager.currentEnemy;
 
 		//display it's the enemies turn, attack
-		GameManager.Instance.endTurn.SetActive(false);
+		GameManager.Instance.enemyTurn.SetActive(true);
 
 		//simulate animation for 1 second
 		yield return new WaitForSeconds(1f);
