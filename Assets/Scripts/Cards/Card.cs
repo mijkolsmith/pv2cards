@@ -54,6 +54,7 @@ public class Card : StateMachine, ICard
     [HideInInspector] public Canvas myCanvas;
     [HideInInspector] public bool posSet;
     [HideInInspector] public RectTransform rt;
+    [HideInInspector] public bool attacking;
 
     public void Start()
     {

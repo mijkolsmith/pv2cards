@@ -85,9 +85,13 @@ public class BattleManager : StateMachine
 		{
 			if (card.GetState().GetType() == typeof(ArenaState))
 			{
+				card.attacking = true;
+				yield return new WaitForSeconds(.1f);
 				currentEnemy.TakeDamage(card.attack);
+				yield return new WaitForSeconds(.1f);
 				card.energy -= 1;
-				yield return new WaitForSeconds(.2f);
+				yield return new WaitForSeconds(.1f);
+				card.attacking = false;
 			}
 		}
 

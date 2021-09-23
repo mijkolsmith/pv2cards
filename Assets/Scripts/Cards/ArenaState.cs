@@ -2,19 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class ArenaState : State
 {
-	Card card;
+	private Card card;
 	public ArenaState(Card card)
 	{ this.card = card; }
+
+	// If I set Pos to y = 0 it warps to y = -112.5... no idea why, but +112.5f offset works for now
+	private float startPos = 112.5f;
+	private float endPos = 400f;
+	private bool firstFramePassed;
+
+	
 
 	public override IEnumerator Start()
 	{
 		GameManager.Instance.arenaPanel.GetComponent<AudioSource>().Play();
 		Debug.Log(card.name + ": In Arena");
 		Transform location = GameManager.Instance.arenaPanel.transform.GetComponentsInChildren<CanvasRenderer>().Where(x => x.transform.childCount == 1 && x.gameObject.GetComponentInChildren<HoverCheck>().mouseHover == true).FirstOrDefault().transform;
-		card.transform.SetParent(location, true);
+		card.rt.SetParent(location, true);
 		card.siblingIndex = location.GetSiblingIndex();
 
 		if (card.myCanvas != null)
@@ -31,10 +39,37 @@ public class ArenaState : State
 
 	public override IEnumerator Update()
 	{
-		card.transform.localScale = new Vector3(1,1,1);
-		// If i set localPos to Vec3(0,0,0) it warps to -112.5 y... no idea why, but this works for now
-		card.transform.localPosition = new Vector3(0, 112.5f, 0);
-		card.transform.localRotation = Quaternion.identity;
+		if (!firstFramePassed)
+		{
+			firstFramePassed = true;
+			card.rt.localPosition = new Vector3(0, startPos, 0);
+			LayoutRebuilder.ForceRebuildLayoutImmediate(GameManager.Instance.arenaPanel.GetComponent<RectTransform>());
+		}
+
+		if (!card.attacking)
+		{
+			card.rt.localScale = new Vector3(1, 1, 1);
+			card.rt.localRotation = Quaternion.identity;
+			
+			if (card.rt.localPosition.y > startPos - 0.001 && card.rt.localPosition.y < startPos + 0.001)
+			{
+				card.rt.localPosition = new Vector3(0, startPos, 0);
+				yield break;
+			}
+			card.rt.localPosition = Vector3.Lerp(card.rt.localPosition, new Vector3(0, startPos, 0), card.animationSpeed * Time.deltaTime);
+		}
+		else if (card.attacking)
+        {
+			card.rt.localScale = new Vector3(1, 1, 1);
+			card.rt.localRotation = Quaternion.identity;
+			
+			if (card.rt.localPosition.y > endPos - 0.001 && card.rt.localPosition.y < endPos + 0.001)
+			{
+				card.rt.localPosition = new Vector3(0, endPos, 0);
+				yield break;
+			}
+			card.rt.localPosition = Vector3.Lerp(card.rt.localPosition, new Vector3(0, endPos, 0), card.animationSpeed * Time.deltaTime);
+		}
 
 		if (card.energy <= 0)
         {

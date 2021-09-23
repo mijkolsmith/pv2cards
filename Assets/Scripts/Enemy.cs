@@ -15,7 +15,6 @@ public class Enemy : MonoBehaviour, IDamageable
 	}
 
 	// Enemy Variables
-	// TODO: set to private after debuwug
 	public List<int> attackDamage = new List<int>();
 	public int staggerTotal;
 	public int staggerCounter;
