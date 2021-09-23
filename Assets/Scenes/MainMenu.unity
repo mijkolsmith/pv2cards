@@ -475,8 +475,10 @@ MonoBehaviour:
   win: {fileID: 0}
   lose: {fileID: 0}
   button: {fileID: 0}
-  endTurn: {fileID: 0}
   deckBack: {fileID: 0}
+  playerTurn: {fileID: 0}
+  enemyTurn: {fileID: 0}
+  tutorialClosed: 0
 --- !u!82 &490787108
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1249,7 +1251,7 @@ MonoBehaviour:
   m_text: Volume
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 5232a0dbc44f8174da792470e3314af5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

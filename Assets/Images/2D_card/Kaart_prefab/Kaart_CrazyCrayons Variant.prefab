@@ -25,7 +25,7 @@ PrefabInstance:
     - target: {fileID: 3278947632208873748, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text
-      value: + 3 attack to the card on the right
+      value: +3 attack to the card on the right
       objectReference: {fileID: 0}
     - target: {fileID: 4851103466701429463, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}

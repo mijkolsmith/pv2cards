@@ -7,10 +7,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 958927647897327018, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: effect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 958927647897327018, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: modifier
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2665143230183270168, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text
-      value: 2
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3278947632208873748, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_text
+      value: +1 attack to the card on the right
       objectReference: {fileID: 0}
     - target: {fileID: 4851103466701429463, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
