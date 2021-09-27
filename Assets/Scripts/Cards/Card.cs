@@ -43,7 +43,7 @@ public class Card : StateMachine, ICard
     // Edit these variables however you like (They influence the animations)
     public readonly float endPosHeight = 150; // How high the card will be when hovering over it
     public readonly float endScale = 1.7f; // How big the card will be when hovering over it
-    public readonly float animationSpeed = 5; // How fast the card will move when hovering over it
+    public readonly float animationSpeed = 5; // How fast the card will move when animating
     public readonly int width = 100; // The width of the card
     public readonly int height = 225; // The height of the card
 

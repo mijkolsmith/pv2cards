@@ -24,10 +24,18 @@ public class Enemy : MonoBehaviour, IDamageable
 	public List<TextMeshProUGUI> attackDamageText = new List<TextMeshProUGUI>();
 	public TextMeshProUGUI staggerText;
 
+	public readonly float animationSpeed = 10; // How fast the enemy will move when animating
+	[HideInInspector] public bool attacking = false;
+	[HideInInspector] public RectTransform rt;
+	[HideInInspector] public Canvas myCanvas;
+
+
 	public void Start()
 	{
 		healthSlider = GetComponentInChildren<Slider>();
 		healthSlider.maxValue = health;
+		rt = GetComponent<RectTransform>();
+		myCanvas = GetComponent<Canvas>();
 
 		List<TextMeshProUGUI> texts = GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "Attack" || x.name == "Stagger").ToList();
 		attackDamageText = texts.Where(x => x.name == "Attack").ToList();

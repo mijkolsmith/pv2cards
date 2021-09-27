@@ -207,6 +207,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: -52
       objectReference: {fileID: 0}
+    - target: {fileID: 8209010464666943521, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 8261456681747488917, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text

@@ -559,6 +559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6810976964870229893}
   - component: {fileID: 6810976964870229899}
+  - component: {fileID: 419690816576344058}
   - component: {fileID: 4955560651361944427}
   m_Layer: 5
   m_Name: Enemy_prefab
@@ -598,6 +599,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6810976964870229894}
   m_CullTransparentMesh: 1
+--- !u!223 &419690816576344058
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6810976964870229894}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!114 &4955560651361944427
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -617,6 +639,9 @@ MonoBehaviour:
   healthSlider: {fileID: 0}
   attackDamageText: []
   staggerText: {fileID: 0}
+  attacking: 0
+  rt: {fileID: 0}
+  myCanvas: {fileID: 0}
 --- !u!1 &6810976965162454015
 GameObject:
   m_ObjectHideFlags: 0

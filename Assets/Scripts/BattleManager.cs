@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using TMPro;
+using UnityEngine.UI;
 
 public class BattleManager : StateMachine
 {
@@ -17,20 +18,24 @@ public class BattleManager : StateMachine
 		SetState(new MenuState());
 	}
 
-	public void NextEnemy()
+	public IEnumerator NextEnemy()
 	{
-		if (enemies.Where(x => x.health > 0).Count() <= 0)
-        {
-			Debug.Log("You win!");
-			GameManager.Instance.win.gameObject.SetActive(true);
-			GameManager.Instance.button.SetActive(true);
-		}
-
 		if (currentEnemy != null)
 		{
 			enemies.Remove(currentEnemy);
 			Destroy(currentEnemy.gameObject);
 		}
+
+		yield return new WaitForSeconds(.2f);
+
+		if (enemies.Where(x => x.health > 0).Count() <= 0)
+        {
+			Debug.Log("You win!");
+			GameManager.Instance.win.gameObject.SetActive(true);
+			GameManager.Instance.button.SetActive(true);
+			yield break;
+		}
+		
 		currentEnemy = enemies.Where(x => x != null).OrderBy(x => x.health).FirstOrDefault();
 		currentEnemy.transform.SetParent(GameManager.Instance.enemyHolder.transform);
 		currentEnemy.transform.localPosition = Vector3.zero;
@@ -45,15 +50,28 @@ public class BattleManager : StateMachine
 		enemies.Clear();
 	}
 
-	public void PlayCard(Card playedCard)
+	public IEnumerator PlayCard(Card playedCard)
     {
+		LayoutRebuilder.ForceRebuildLayoutImmediate(GameManager.Instance.handPanel.GetComponent<RectTransform>());
+		foreach (Card card in cards)
+		{
+			if (card.GetState().GetType() == typeof(HandState))
+			{
+				card.UpdateSiblingIndex();
+			}
+		}
+
 		if (currentEnemy == null)
 		{
-			NextEnemy();
+			GameManager.Instance.ExecuteCoroutine(NextEnemy());
 		}
+
+		yield return new WaitForSeconds(.2f);
 
 		// Put the card on the board
 		playedCard.SetState(new ArenaState(playedCard));
+
+		yield return new WaitForSeconds(.1f);
 
 		GameManager.Instance.playerTurn.SetActive(false);
 		GameManager.Instance.ExecuteCoroutine(NextTurn());
@@ -103,13 +121,12 @@ public class BattleManager : StateMachine
 
 		if (currentEnemy.health <= 0)
 		{ // Check if enemy is dead
-			NextEnemy();
+			GameManager.Instance.ExecuteCoroutine(NextEnemy());
 		}
 
 		yield return new WaitForSeconds(.2f);
 
 		SetState(new EnemyTurnState());
-		yield return null;
 	}
 
 	public void CheckIfCardsDied()

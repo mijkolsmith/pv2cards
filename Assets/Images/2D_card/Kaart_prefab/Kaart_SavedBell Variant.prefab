@@ -162,6 +162,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 5afbab36306f81f4abb2c90741b52da4,
         type: 3}
+    - target: {fileID: 8209010464666943521, guid: 83c46438368515c4a9f95ab32e950b52,
+        type: 3}
+      propertyPath: m_BlockingMask.m_Bits
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 8261456681747488917, guid: 83c46438368515c4a9f95ab32e950b52,
         type: 3}
       propertyPath: m_text

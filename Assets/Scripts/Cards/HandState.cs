@@ -1,7 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class HandState : State
@@ -56,7 +55,7 @@ public class HandState : State
 			{
 				if (GameManager.Instance.arenaPanel.transform.GetComponentsInChildren<CanvasRenderer>().Where(x => x.transform.childCount == 1 && x.gameObject.GetComponentInChildren<HoverCheck>().mouseHover == true).FirstOrDefault() != null && hovering)
 				{
-					GameManager.Instance.battleManager.PlayCard(card);
+					GameManager.Instance.StartCoroutine(GameManager.Instance.battleManager.PlayCard(card));
 					
 					foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)))
 					{
