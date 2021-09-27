@@ -14,7 +14,7 @@ public class DeathState : State
 	public override IEnumerator Start()
 	{
 		List<Image> images = card.GetComponentsInChildren<Image>().ToList();
-		List<TextMeshProUGUI> texts = card.GetComponentsInChildren<TextMeshProUGUI>().ToList();	
+		List<TextMeshProUGUI> texts = card.GetComponentsInChildren<TextMeshProUGUI>().ToList();
 
 		// Death fade animation
 		for (int i = 0; i < 122; i++)

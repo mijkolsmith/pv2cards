@@ -16,7 +16,6 @@ public class HandState : State
 	private bool firstFramePassed;
 	private bool hovering = false;
 
-
 	public override IEnumerator Start()
 	{
 		Debug.Log(card.name + ": In Hand ");
@@ -62,8 +61,11 @@ public class HandState : State
 						card.posSet = false;
 					}
 				}
+				
 			}
 			else { Debug.Log("it's not your turn"); }
+
+			hovering = false;
 		}
 
 		if (card.mouseHover && Input.GetKey(KeyCode.Mouse0) && GameManager.Instance.tutorialClosed == true)

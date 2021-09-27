@@ -22,11 +22,11 @@ public class BattleManager : StateMachine
 	{
 		if (currentEnemy != null)
 		{
+			GameManager.Instance.ExecuteCoroutine(currentEnemy.Die());
 			enemies.Remove(currentEnemy);
-			Destroy(currentEnemy.gameObject);
-		}
 
-		yield return new WaitForSeconds(.2f);
+			yield return new WaitForSeconds(1f);
+		}
 
 		if (enemies.Where(x => x.health > 0).Count() <= 0)
         {
@@ -40,6 +40,7 @@ public class BattleManager : StateMachine
 		currentEnemy.transform.SetParent(GameManager.Instance.enemyHolder.transform);
 		currentEnemy.transform.localPosition = Vector3.zero;
 
+		SetState(new EnemyTurnState());
 		Debug.Log("enemy name: " + currentEnemy.name + "   health: " + currentEnemy.health + "  attack damage 1: " + currentEnemy.attackDamage[0] + " stagger: " + currentEnemy.staggerTotal);
 	}
 
@@ -52,6 +53,18 @@ public class BattleManager : StateMachine
 
 	public IEnumerator PlayCard(Card playedCard)
     {
+		if (currentEnemy == null)
+		{
+			currentEnemy = enemies.Where(x => x != null).OrderBy(x => x.health).FirstOrDefault();
+			currentEnemy.transform.SetParent(GameManager.Instance.enemyHolder.transform);
+			currentEnemy.transform.localPosition = Vector3.zero;
+		}
+
+		yield return new WaitForSeconds(.2f);
+
+		// Put the card on the board
+		playedCard.SetState(new ArenaState(playedCard));
+
 		LayoutRebuilder.ForceRebuildLayoutImmediate(GameManager.Instance.handPanel.GetComponent<RectTransform>());
 		foreach (Card card in cards)
 		{
@@ -60,16 +73,6 @@ public class BattleManager : StateMachine
 				card.UpdateSiblingIndex();
 			}
 		}
-
-		if (currentEnemy == null)
-		{
-			GameManager.Instance.ExecuteCoroutine(NextEnemy());
-		}
-
-		yield return new WaitForSeconds(.2f);
-
-		// Put the card on the board
-		playedCard.SetState(new ArenaState(playedCard));
 
 		yield return new WaitForSeconds(.1f);
 
@@ -80,37 +83,29 @@ public class BattleManager : StateMachine
 	public IEnumerator NextTurn()
     {
 		// Update the sibling index variable
-		foreach (Card card in cards)
+		foreach (Card card in cards.Where(x => x.GetState().GetType() == typeof(HandState)))
 		{
-			if (card.GetState().GetType() == typeof(HandState))
-			{
-				card.UpdateSiblingIndex();
-			}
+			card.posSet = false;
+			card.UpdateSiblingIndex();
 		}
 
 		// Step 1: Apply effects
-		foreach (Card card in cards)
+		foreach (Card card in cards.Where(x => x.GetState().GetType() == typeof(ArenaState)))
 		{
-			if (card.GetState().GetType() == typeof(ArenaState))
-			{
-				card.Effect(card.effectStats);
-				yield return new WaitForSeconds(.2f);
-			}
+			card.Effect(card.effectStats);
+			yield return new WaitForSeconds(.2f);
 		}
 
 		// Step 2: Calculate damage done by cards
-		foreach (Card card in cards)
+		foreach (Card card in cards.Where(x => x.GetState().GetType() == typeof(ArenaState)))
 		{
-			if (card.GetState().GetType() == typeof(ArenaState))
-			{
-				card.attacking = true;
-				yield return new WaitForSeconds(.1f);
-				currentEnemy.TakeDamage(card.attack);
-				yield return new WaitForSeconds(.1f);
-				card.energy -= 1;
-				yield return new WaitForSeconds(.1f);
-				card.attacking = false;
-			}
+			card.attacking = true;
+			yield return new WaitForSeconds(.1f);
+			currentEnemy.TakeDamage(card.attack);
+			yield return new WaitForSeconds(.1f);
+			card.energy -= 1;
+			yield return new WaitForSeconds(.1f);
+			card.attacking = false;
 		}
 
 		// Step 3: Check if cards died
@@ -123,10 +118,10 @@ public class BattleManager : StateMachine
 		{ // Check if enemy is dead
 			GameManager.Instance.ExecuteCoroutine(NextEnemy());
 		}
-
-		yield return new WaitForSeconds(.2f);
-
-		SetState(new EnemyTurnState());
+		else
+		{
+			SetState(new EnemyTurnState());
+		}
 	}
 
 	public void CheckIfCardsDied()
