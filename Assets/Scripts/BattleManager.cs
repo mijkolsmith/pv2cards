@@ -51,7 +51,7 @@ public class BattleManager : StateMachine
 		enemies.Clear();
 	}
 
-	public IEnumerator PlayCard(Card playedCard)
+	public IEnumerator PlayCard(Card playedCard, Transform location)
     {
 		if (currentEnemy == null)
 		{
@@ -63,7 +63,7 @@ public class BattleManager : StateMachine
 		yield return new WaitForSeconds(.2f);
 
 		// Put the card on the board
-		playedCard.SetState(new ArenaState(playedCard));
+		playedCard.SetState(new ArenaState(playedCard, location));
 
 		LayoutRebuilder.ForceRebuildLayoutImmediate(GameManager.Instance.handPanel.GetComponent<RectTransform>());
 		foreach (Card card in cards)

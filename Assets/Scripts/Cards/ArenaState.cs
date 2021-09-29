@@ -7,8 +7,12 @@ using UnityEngine.UI;
 public class ArenaState : State
 {
 	private Card card;
-	public ArenaState(Card card)
-	{ this.card = card; }
+	private Transform location;
+	public ArenaState(Card card, Transform location)
+	{ 
+		this.card = card;
+		this.location = location;
+	}
 
 	// If I set Pos to y = 0 it warps to y = -112.5... no idea why, but +112.5f offset works for now
 	private float startPosY = 112.5f;
@@ -19,7 +23,6 @@ public class ArenaState : State
 	{
 		GameManager.Instance.arenaPanel.GetComponent<AudioSource>().Play();
 		Debug.Log(card.name + ": In Arena");
-		Transform location = GameManager.Instance.arenaPanel.transform.GetComponentsInChildren<CanvasRenderer>().Where(x => x.transform.childCount == 1 && x.gameObject.GetComponentInChildren<HoverCheck>().mouseHover == true).FirstOrDefault().transform;
 		card.rt.SetParent(location, true);
 		card.siblingIndex = location.GetSiblingIndex();
 

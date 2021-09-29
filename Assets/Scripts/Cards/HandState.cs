@@ -50,11 +50,13 @@ public class HandState : State
 
 		if (Input.GetKeyUp(KeyCode.Mouse0))
 		{// Play the card if someone releases Mouse0 when the card is above an empty slot
-			if (GameManager.Instance.battleManager.playerMove == true)
+			if (GameManager.Instance.battleManager.playerMove == true && hovering)
 			{
-				if (GameManager.Instance.arenaPanel.transform.GetComponentsInChildren<CanvasRenderer>().Where(x => x.transform.childCount == 1 && x.gameObject.GetComponentInChildren<HoverCheck>().mouseHover == true).FirstOrDefault() != null && hovering)
+				GameObject locationObject = (GameManager.Instance.arenaPanel.transform.GetComponentsInChildren<CanvasRenderer>().Where(x => x.transform.childCount == 1 && x.gameObject.GetComponentInChildren<HoverCheck>().mouseHover == true).FirstOrDefault().gameObject == null) ? null : GameManager.Instance.arenaPanel.transform.GetComponentsInChildren<CanvasRenderer>().Where(x => x.transform.childCount == 1 && x.gameObject.GetComponentInChildren<HoverCheck>().mouseHover == true).FirstOrDefault().gameObject;
+				if (locationObject != null)
 				{
-					GameManager.Instance.StartCoroutine(GameManager.Instance.battleManager.PlayCard(card));
+					GameManager.Instance.battleManager.playerMove = false;
+					GameManager.Instance.StartCoroutine(GameManager.Instance.battleManager.PlayCard(card,locationObject.transform));
 					
 					foreach (Card card in GameManager.Instance.battleManager.cards.Where(x => x.GetState().GetType() == typeof(HandState)))
 					{
@@ -99,6 +101,8 @@ public class HandState : State
 				card.rt.localScale = Vector3.one * startScale;
 				yield break; 
 			}
+
+			hovering = false;
 
 			// Reset position with Lerp
 			card.rt.localPosition = Vector3.Lerp(card.rt.localPosition, startPos, card.animationSpeed * Time.deltaTime);
