@@ -50,11 +50,13 @@ public class Card : StateMachine, ICard
     // Other variables needed for the script to work
     [HideInInspector] public int siblingIndex;
     [HideInInspector] public bool mouseHover = false;
-    [HideInInspector] private bool executed = false;
     [HideInInspector] public Canvas myCanvas;
     [HideInInspector] public bool posSet;
     [HideInInspector] public RectTransform rt;
     [HideInInspector] public bool attacking;
+
+    private bool executed = false;
+    private Hover hover;
 
     public void Start()
     {
@@ -81,6 +83,8 @@ public class Card : StateMachine, ICard
 
         // Initialize an EffectStats class
         effectStats = new EffectStats(modifier, left, multiply);
+
+        hover = GetComponent<Hover>();
     }
 
     public new void SetState(State state)
@@ -94,7 +98,7 @@ public class Card : StateMachine, ICard
 
     public new void Update()
     {
-        mouseHover = GetComponent<Hover>().mouseHover;
+        mouseHover = hover.mouseHover;
         base.Update();
         attackText.text = attack.ToString();
         energyText.text = energy.ToString();

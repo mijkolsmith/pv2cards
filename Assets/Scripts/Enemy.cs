@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour, IDamageable
 	{
 		healthSlider = GetComponentInChildren<Slider>();
 		healthSlider.maxValue = health;
-		rt = GetComponent<RectTransform>();
+		rt = transform.GetChild(0).GetComponent<RectTransform>();
 		myCanvas = GetComponent<Canvas>();
 
 		List<TextMeshProUGUI> texts = GetComponentsInChildren<TextMeshProUGUI>().Where(x => x.name == "Attack" || x.name == "Stagger").ToList();
